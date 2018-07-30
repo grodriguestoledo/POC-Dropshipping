@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Autenticacao.API
+namespace APIGateway.Ocelot
 {
     public class Program
     {
@@ -20,7 +20,7 @@ namespace Autenticacao.API
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-            //    .UseUrls("http://localhost:5002/")
+               // .UseUrls("http://localhost:8090")
                 .Build();
     }
 }

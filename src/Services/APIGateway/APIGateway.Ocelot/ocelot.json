@@ -1,0 +1,21 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/connect/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.17.0.2",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/federation/{catchAll}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Options"
+      ]
+    }
+  ],
+  "GlobalConfiguration": {}
+}

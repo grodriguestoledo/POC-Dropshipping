@@ -1,0 +1,23 @@
+div.produto{
+    margin-top:30px;
+}
+a.produto--nome{
+    font-size: 1.1em;
+    color:#000;
+}
+a.produto--nome:hover{
+    font-style: normal;
+    text-decoration: none;
+}
+.produto--preco{
+    font-size: 1.4em;
+    color:#111111;
+}
+.produto--fornecedor{
+    font-size: 0.8em;
+    font-style: italic;
+}
+img.produto--imagem{
+    max-width: 250px;
+    max-height: 250px;
+}

@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-sm-3 col-12 produto" *ngFor="let produto of listaDeProdutos">
+    <div class="row ">
+      <div class="col-6 offset-3" >
+        <a href="#">
+          <img class="img-responsive produto--imagem" [src]="produto.imagemProduto" [title]="produto.nomeProduto" [alt]="produto.nomeProduto">
+        </a>
+      </div>
+      <div class="col-12 text-center">
+        <a class="produto--nome" href="#">
+          {{produto.nomeProduto}}
+        </a>
+      </div>
+      <div class="col-12 text-center">
+        <div class="produto--fornecedor"> Fornecido por {{produto.fornecedor}}</div>
+      </div>
+      <div class="col-12 text-center">
+        <div class="produto--preco">{{produto.preco | currency:'R$ ':'symbol':'1.2-2'}}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
