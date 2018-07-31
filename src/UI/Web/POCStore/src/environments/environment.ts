@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl:'http://192.168.2.122/api',
+  clientId:'poc-api',
+  clientSecret:'123mudar'
 };
 
 /*

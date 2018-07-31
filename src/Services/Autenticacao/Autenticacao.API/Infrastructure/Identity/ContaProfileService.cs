@@ -19,8 +19,8 @@ namespace Autenticacao.API.Infrastructure.Identity
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var id = Convert.ToInt64(context.Subject.GetSubjectId());
-            var conta = await _context.Contas.FirstOrDefaultAsync(x => x.ContaId == id);
+           // var id = Convert.ToInt64(context.Subject.GetSubjectId());
+            var conta = await _context.Contas.FirstOrDefaultAsync(x => x.ContaUID.ToString() == context.Subject.GetSubjectId());
             if(conta != null){
                 var claims = new List<Claim>();
                 claims.Add(new Claim("username",conta.Login));
@@ -34,8 +34,8 @@ namespace Autenticacao.API.Infrastructure.Identity
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-             var id = Convert.ToInt64(context.Subject.GetSubjectId());
-             var conta = await _context.Contas.FirstOrDefaultAsync(x => x.ContaId == id);
+            // var id = Convert.ToInt64(context.Subject.GetSubjectId());
+             var conta = await _context.Contas.FirstOrDefaultAsync(x => x.ContaUID.ToString() == context.Subject.GetSubjectId());
              context.IsActive = conta != null;
         }
     }

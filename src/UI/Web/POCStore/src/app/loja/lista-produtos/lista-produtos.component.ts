@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ListaProdutoModel } from '../models/lista-produto-model';
+import { ListaProdutoModel } from '../../common/models/lista-produto-model';
+
 
 @Component({
   selector: 'store-lista-produtos',
@@ -8,7 +9,7 @@ import { ListaProdutoModel } from '../models/lista-produto-model';
 })
 export class ListaProdutosComponent implements OnInit {
 
-  private listaDeProdutos : Array<ListaProdutoModel>;
+  public listaDeProdutos : Array<ListaProdutoModel>;
   constructor() { 
     this.listaDeProdutos = [];
     this.listaDeProdutos.push(new ListaProdutoModel("Produto01",12,"https://www.petlove.com.br/images/products/171069/product/Sanitario-Higienico-Pet-Injet-Xixi-Pets-Premium---Rosa.jpg?1495043600","Whiskas"));

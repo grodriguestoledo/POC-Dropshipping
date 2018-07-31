@@ -21,7 +21,7 @@ namespace Autenticacao.API.Infrastructure.Identity
             {
                 if(conta.ConferirSenha(senhaCriptografada))
                 {
-                    context.Result = new GrantValidationResult(conta.ContaId.ToString(),OidcConstants.GrantTypes.Password);
+                    context.Result = new GrantValidationResult(conta.ContaUID.ToString(),OidcConstants.GrantTypes.Password);
                     return;
                 }
             }

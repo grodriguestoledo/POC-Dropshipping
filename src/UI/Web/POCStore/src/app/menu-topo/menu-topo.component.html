@@ -22,11 +22,14 @@
       </li>
     </ul>
     <ul class="navbar-nav flex-row ml-md-auto">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!conta" >
         <span class="navbar-text">Olá, visitante</span>
         <a href="#/autenticar" class="navbar-nav">Autenticar-se</a>
-        
       </li>
+      <li class="nav-item" *ngIf="conta" >
+          <span class="navbar-text">Olá, {{conta?.nomeCompleto}}</span>
+          <a href="#" class="navbar-nav" (click)="sair()" >Sair</a>
+        </li>
     </ul>
   </div>
 </nav>

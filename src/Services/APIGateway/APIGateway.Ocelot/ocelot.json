@@ -15,6 +15,46 @@
         "Post",
         "Options"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/produtos",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.17.0.4",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/produtos",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-server",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/produtos/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "172.17.0.4",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/produtos/{catchAll}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ]
     }
   ],
   "GlobalConfiguration": {}

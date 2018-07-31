@@ -47,7 +47,10 @@ namespace APIGateway.Ocelot
                 o.ApiName = apiName;
                 o.ApiSecret = apiSecret;
                 o.Authority = identityServer;
+                o.RequireHttpsMetadata = false;
             };
+
+            services.AddCors();
 
             services.AddAuthentication().AddIdentityServerAuthentication(providerName, options);
 
@@ -59,7 +62,7 @@ namespace APIGateway.Ocelot
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-
+            app.UseCors(b=>b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             app.UseOcelot().Wait();
         }
     }

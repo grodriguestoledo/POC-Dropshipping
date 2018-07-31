@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Events } from '../common/events/events';
+import { ContaAutenticadaModel } from '../common/models/conta-autenticada-model';
+import { AutenticacaoService } from '../common/services/autenticacao.service';
 
 @Component({
   selector: 'store-menu-topo',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuTopoComponent implements OnInit {
 
-  constructor() { }
+  public conta : ContaAutenticadaModel = undefined;
+  constructor(private events : Events, private autenticacaoService:AutenticacaoService) { }
 
   ngOnInit() {
+    this.events.usuarioAutenticouEvent.subscribe((res)=>{this.onUsuarioAutenticadoHandler(res);});
+    this.events.usuarioEfetuouLogoffEvent.subscribe(()=>{this.onUsuarioLogoffHandler();})
+    this.conta = this.autenticacaoService.obterConta() as ContaAutenticadaModel;
   }
 
+  sair(){
+    this.autenticacaoService.efetuarLogoff();
+  }
+
+  onUsuarioAutenticadoHandler(contaAutenticada:ContaAutenticadaModel){
+ 
+    this.conta = contaAutenticada;
+  }
+  onUsuarioLogoffHandler(){
+    this.conta = undefined;
+  }
 }

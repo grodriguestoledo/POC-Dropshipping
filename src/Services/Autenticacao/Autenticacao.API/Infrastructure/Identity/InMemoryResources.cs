@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using IdentityServer4.Models;
+using static IdentityServer4.IdentityServerConstants;
 
 namespace Autenticacao.API.Infrastructure.Identity
 {
@@ -14,7 +15,15 @@ namespace Autenticacao.API.Infrastructure.Identity
                         Description = "POC API",
                         UserClaims = new List<string> { "profile", "email", "role" },
                         ApiSecrets = new List<Secret> { new Secret("apiSecret".Sha256()) },
-                        Scopes = new List<Scope> { new Scope("poc-api.all") }
+                        Scopes = new List<Scope>
+                        {
+                            new Scope()
+                            {
+                                Name = "poc-api.all",
+                                UserClaims = new [] { "profile", "email", "role" },
+                            }
+                         }
+
                     }
 
              };

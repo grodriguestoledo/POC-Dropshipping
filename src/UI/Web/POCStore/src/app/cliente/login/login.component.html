@@ -1,3 +1,24 @@
-<p>
-  login works!
-</p>
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 col-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"> Já possui cadastro? </h5>
+        <form validate #form="ngForm" (ngSubmit)="autenticar(form)">
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input name="email" type="email" required id="email" class="form-control" ngModel />
+          </div>
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <input name="senha" type="password" required id="password" class="form-control" ngModel />
+          </div>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+          <button type="button" disabled class="btn btn-primary ml-3 disabled">Criar nova conta</button>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

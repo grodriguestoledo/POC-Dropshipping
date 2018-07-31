@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { MenuTopoComponent } from './menu-topo/menu-topo.component';
 import { LojaModule } from './loja/loja.module';
 import { ClienteModule } from './cliente/cliente.module';
+import { Events } from './common/events/events';
+import { AutenticacaoService } from './common/services/autenticacao.service';
 
 
 @NgModule({
@@ -20,7 +22,7 @@ import { ClienteModule } from './cliente/cliente.module';
     LojaModule,
     ClienteModule
   ],
-  providers: [],
+  providers: [Events,AutenticacaoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
