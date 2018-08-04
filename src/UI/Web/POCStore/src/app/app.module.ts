@@ -1,3 +1,4 @@
+import { ErroComponent } from './erro/erro.component';
 
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +15,8 @@ import { AutenticacaoService } from './common/services/autenticacao.service';
 @NgModule({
   declarations: [
     AppComponent,
-    MenuTopoComponent
+    MenuTopoComponent,
+    ErroComponent
   ],
   imports: [
     BrowserModule,

@@ -5,73 +5,57 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.DTO;
+using Produtos.API.Infrastructure.Data;
 
 namespace Produtos.API.Controllers
 {
     [Route("api/produtos")]
     public class ProdutosController : Controller
     {
+        private readonly ProdutoRepository _produtoRepository;
+        public ProdutosController(ProdutoRepository produtoRepository)
+        {
+            _produtoRepository = produtoRepository;
+
+        }
         // GET api/values
         [HttpGet]
-        public ObjectResult Get()
+        public async Task<ObjectResult> Get(string f = "")
         {
-            var listaProdutos = new List<ProdutoListagemDTO>();
-            listaProdutos.Add(new ProdutoListagemDTO{
-                CodigoProduto = "aaaa",
-                Categoria = "Ração",
-                NomeProduto = "Whiskas",
-                Preco = 10
+            var produtos = await _produtoRepository.ObterProdutos(f);
+
+            var listaProdutos = produtos.Select(x=>new ProdutoListagemDTO
+            {
+                CodigoProduto = x.CodigoProduto,
+                Categoria = x.Categoria,
+                NomeProduto = x.NomeProduto,
+                Preco = x.Preco,
+                Fornecedor = x.Fornecedor,
+                ImagemProduto = x.ImagemUrl
             });
-             listaProdutos.Add(new ProdutoListagemDTO{
-                CodigoProduto = "aaaa",
-                Categoria = "Ração",
-                NomeProduto = "Furfles Ração Monstra",
-                Preco = 9.99M
-            });
-             listaProdutos.Add(new ProdutoListagemDTO{
-                CodigoProduto = "aaaa",
-                Categoria = "Ração",
-                NomeProduto = "Whiskas",
-                Preco = 10
-            });
-             listaProdutos.Add(new ProdutoListagemDTO{
-                CodigoProduto = "aaaa",
-                Categoria = "Ração",
-                NomeProduto = "Whiskas",
-                Preco = 10
-            });
+
+            if(!listaProdutos.Any()) return this.StatusCode(404,null);
 
             return this.StatusCode(200,listaProdutos);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ObjectResult Get(int id)
+        [HttpGet("{codigoProduto}")]
+        public async Task<ObjectResult> GetDetalhe(string codigoProduto)
         {
-            return this.StatusCode(200,new ProdutoListagemDTO{
-                CodigoProduto = "aaaa",
-                Categoria = "Ração",
-                NomeProduto = "Whiskas",
-                Preco = 10
+            var produtoDetalhe = await _produtoRepository.ObterProdutoDetalhe(codigoProduto);
+            if(produtoDetalhe == null) return this.StatusCode(404,null);
+
+            return this.StatusCode(200, new ProdutoDetalheDTO
+            {
+                Descricao = produtoDetalhe.Descricao,
+                Detalhes = produtoDetalhe.Detalhes,
+                CodigoProduto = produtoDetalhe.CodigoProduto,
+                Categoria = produtoDetalhe.Categoria,
+                NomeProduto = produtoDetalhe.NomeProduto,
+                Preco = produtoDetalhe.Preco,
+                Fornecedor = produtoDetalhe.Fornecedor,
+                ImagemProduto = produtoDetalhe.ImagemUrl
             });
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

@@ -1,0 +1,12 @@
+.produto--preco{
+    font-size: 1.8em;
+    color:#111111;
+}
+.produto--fornecedor{
+    font-size: 0.8em;
+    font-style: italic;
+}
+.produto--detalhes{
+    text-align: justify;
+    font-size:1.1em;
+}

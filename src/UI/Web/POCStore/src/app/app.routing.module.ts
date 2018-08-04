@@ -2,6 +2,9 @@ import { LoginComponent } from './cliente/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListaProdutosComponent } from './loja/lista-produtos/lista-produtos.component';
+import { DetalheProdutoComponent } from './loja/detalhe-produto/detalhe-produto.component';
+import { ProdutoNaoEncontradoComponent } from './loja/produto-nao-encontrado/produto-nao-encontrado.component';
+import { ErroComponent } from './erro/erro.component';
 
 const appRoutes: Routes = [
     {
@@ -15,6 +18,18 @@ const appRoutes: Routes = [
     {
         path:'autenticar',
         component:LoginComponent
+    },
+    {
+        path:'produtos/:codigoProduto/detalhes',
+        component:DetalheProdutoComponent
+    },
+    {
+        path:'loja/produto-nao-encontrado',
+        component:ProdutoNaoEncontradoComponent
+    },
+    {
+        path:'**',
+        component:ErroComponent
     }
 ];
 

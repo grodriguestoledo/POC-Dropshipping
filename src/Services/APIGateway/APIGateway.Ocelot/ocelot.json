@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.17.0.2",
+          "Host": "172.18.0.2",
           "Port": 80
         }
       ],
@@ -21,7 +21,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.17.0.4",
+          "Host": "172.18.0.4",
           "Port": 80
         }
       ],
@@ -32,18 +32,14 @@
         "Put",
         "Delete",
         "Options"
-      ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "identity-server",
-        "AllowedScopes": []
-      }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/produtos/{catchAll}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "172.17.0.4",
+          "Host": "172.18.0.4",
           "Port": 80
         }
       ],

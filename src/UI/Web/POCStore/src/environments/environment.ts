@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://192.168.2.122/api',
+  apiUrl:'http://192.168.2.122:8080/api',
   clientId:'poc-api',
   clientSecret:'123mudar'
 };

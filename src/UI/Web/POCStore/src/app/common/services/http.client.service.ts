@@ -18,7 +18,7 @@ export class HttpClientService {
 
   get(url: string): Observable<Object> {
     let headers = this.createDefaultHeaders();
-    return this.httpClient.get(this.apiUrl + url, { headers:headers})
+    return this.httpClient.get(this.apiUrl + url, { headers:headers});
   }
   post(url, data, contentType:string = 'application/json') : Observable<Object> {
     let headers = this.createDefaultHeaders(contentType);

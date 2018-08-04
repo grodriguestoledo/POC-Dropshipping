@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ListaProdutoModel } from '../../common/models/lista-produto-model';
+import { ProdutoService } from '../../common/services/produto.service';
+import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 
 
 @Component({
@@ -9,14 +11,24 @@ import { ListaProdutoModel } from '../../common/models/lista-produto-model';
 })
 export class ListaProdutosComponent implements OnInit {
 
-  public listaDeProdutos : Array<ListaProdutoModel>;
-  constructor() { 
+  public listaDeProdutos: Array<ListaProdutoModel>;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private produtoService: ProdutoService) {
     this.listaDeProdutos = [];
-    this.listaDeProdutos.push(new ListaProdutoModel("Produto01",12,"https://www.petlove.com.br/images/products/171069/product/Sanitario-Higienico-Pet-Injet-Xixi-Pets-Premium---Rosa.jpg?1495043600","Whiskas"));
-    this.listaDeProdutos.push(new ListaProdutoModel("Ração Golden Gatos Adultos Castrados Salmão - 1 Kg",8.99,"https://www.petlove.com.br/images/products/183166/small/3110240-1.jpg?1495064063","Golden"));
-    this.listaDeProdutos.push(new ListaProdutoModel("Produto03",12,"https://www.petlove.com.br/images/products/171069/product/Sanitario-Higienico-Pet-Injet-Xixi-Pets-Premium---Rosa.jpg?1495043600"));
-    this.listaDeProdutos.push(new ListaProdutoModel("Produto04",12,"https://www.petlove.com.br/images/products/171069/product/Sanitario-Higienico-Pet-Injet-Xixi-Pets-Premium---Rosa.jpg?1495043600"));
-    this.listaDeProdutos.push(new ListaProdutoModel("Produto05",12,"https://www.petlove.com.br/images/products/171069/product/Sanitario-Higienico-Pet-Injet-Xixi-Pets-Premium---Rosa.jpg?1495043600"));
+
+    this.route.queryParamMap.subscribe((params) => {
+      let filtro = params.get('f');
+
+      this.produtoService.obterProdutos(filtro).subscribe(produtos => {
+        this.listaDeProdutos = produtos;
+        if(this.listaDeProdutos.length == 0) {
+            router.navigate(['/loja/produto-nao-encontrado'],{preserveQueryParams:true});
+        }
+      });
+
+    });
   }
 
   ngOnInit() {

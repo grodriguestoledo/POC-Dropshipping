@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuscaProdutosComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  public busca : string;
+  constructor(private router: Router, private route: ActivatedRoute) 
+  { 
+     
   }
 
+  ngOnInit() {
+    this.route.queryParamMap.subscribe((params) => {
+      let f = params.get('f');
+      this.busca=f;
+     });
+  }
+
+  buscarProdutos(form) {
+    if (form.value.busca != '') this.router.navigate(['/loja'], { queryParams: { 'f': form.value.busca } });
+    else this.router.navigate(['/loja']);
+  }
 }
