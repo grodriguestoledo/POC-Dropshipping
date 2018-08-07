@@ -5,6 +5,7 @@ import { ListaProdutosComponent } from './loja/lista-produtos/lista-produtos.com
 import { DetalheProdutoComponent } from './loja/detalhe-produto/detalhe-produto.component';
 import { ProdutoNaoEncontradoComponent } from './loja/produto-nao-encontrado/produto-nao-encontrado.component';
 import { ErroComponent } from './erro/erro.component';
+import { CarrinhoDeCompraComponent } from './controle-de-venda/carrinho-de-compra/carrinho-de-compra.component';
 
 const appRoutes: Routes = [
     {
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
     {
         path:'loja/produto-nao-encontrado',
         component:ProdutoNaoEncontradoComponent
+    },
+    {
+        path:'carrinho-de-compra',
+        component:CarrinhoDeCompraComponent
     },
     {
         path:'**',

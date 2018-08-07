@@ -1,6 +1,6 @@
 .produto--preco{
-    font-size: 1.8em;
-    color:#111111;
+    font-size: 1.6em;
+    /* color:#111111; */
 }
 .produto--fornecedor{
     font-size: 0.8em;
@@ -8,5 +8,8 @@
 }
 .produto--detalhes{
     text-align: justify;
+    font-size:1.1em;
+}
+.produto--quantidade{
     font-size:1.1em;
 }

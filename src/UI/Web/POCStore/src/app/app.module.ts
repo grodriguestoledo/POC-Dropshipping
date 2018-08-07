@@ -10,6 +10,7 @@ import { LojaModule } from './loja/loja.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { Events } from './common/events/events';
 import { AutenticacaoService } from './common/services/autenticacao.service';
+import { ControleDeVendaModule } from './controle-de-venda/controle-de-venda.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { AutenticacaoService } from './common/services/autenticacao.service';
     BrowserModule,
     AppRoutingModule,
     LojaModule,
-    ClienteModule
+    ClienteModule,
+    ControleDeVendaModule
   ],
   providers: [Events,AutenticacaoService],
   bootstrap: [AppComponent]

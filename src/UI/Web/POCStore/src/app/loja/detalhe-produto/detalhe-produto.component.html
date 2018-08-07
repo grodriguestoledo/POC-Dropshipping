@@ -10,9 +10,7 @@
     </div>
     <div class="col-12">
       <div [innerHTML]="produto?.descricao"> </div>
-
     </div>
-
   </div>
   <div class="col-12 col-sm-3 border bg-light">
     <div class="row">
@@ -21,14 +19,19 @@
           {{produto?.preco | currency:'R$ ':'symbol':'1.2-2'}}
         </div>
       </div>
-      <div class="col-sm-12 col-6">
-        <button class="btn btn-success btn-lg mt-3">Comprar</button>
+      <div class="col-sm-6 col-6">
+          <div class="form-group mt-3 produto--quantidade">
+            <label for="quantidade">Quantidade</label>
+            <input name="quantidade" [(ngModel)]="quantidade"  class="form-control" type="number" min="1" />
+          </div>
+      </div>
+      <div class="col-sm-12 col-12">
+        <button class="btn btn-success btn-lg mt-3" (click)="onComprarClick()">Comprar</button>
         <div class="produto--fornecedor">
           Fornecido por {{produto?.fornecedor}}
         </div>
       </div>
-
-    </div>
+   </div>
   </div>
   <div class="col-12 col-sm-10 offset-sm-1 border mt-2">
     <div class="card mt-3">

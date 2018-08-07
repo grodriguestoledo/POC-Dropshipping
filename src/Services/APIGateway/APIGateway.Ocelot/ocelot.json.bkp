@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "autenticacaoapi",
+          "Host": "172.18.0.2",
           "Port": 80
         }
       ],
@@ -21,7 +21,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "produtosapi",
+          "Host": "172.18.0.4",
           "Port": 80
         }
       ],
@@ -39,47 +39,11 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "produtosapi",
+          "Host": "172.18.0.4",
           "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/api/produtos/{catchAll}",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Delete",
-        "Options"
-      ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/carrinho",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "carrinhoapi",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/carrinho",
-      "UpstreamHttpMethod": [
-        "Get",
-        "Post",
-        "Put",
-        "Delete",
-        "Options"
-      ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/carrinho/{catchAll}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "carrinhoapi",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/carrinho/{catchAll}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
