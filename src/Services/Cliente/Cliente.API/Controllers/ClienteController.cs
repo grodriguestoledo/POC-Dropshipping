@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,9 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cliente.API.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/cliente")]
+    public class ClienteController : Controller
     {
+        [HttpGet("{clienteUID}")]
+        public IActionResult GetEnderecosDoCliente(string clienteUID)
+        {
+            return StatusCode(404);
+        }
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
