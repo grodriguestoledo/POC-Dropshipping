@@ -1,8 +1,8 @@
-import { DetalheProdutoModel } from './../models/detalhe-produto-model';
-import { ListaProdutoModel } from './../models/lista-produto-model';
-import { Injectable } from "../../../../node_modules/@angular/core";
+import { DetalheProdutoModel } from '../models/detalhe-produto-model';
+import { ListaProdutoModel } from '../models/lista-produto-model';
+import { Injectable } from "@angular/core";
 import { HttpClientService } from "./http.client.service";
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ProdutoService {

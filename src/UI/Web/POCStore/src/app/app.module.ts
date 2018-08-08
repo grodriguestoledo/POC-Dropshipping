@@ -1,3 +1,4 @@
+import { CarrinhoDeCompraService } from './common/services/carrinho-de-compra.service';
 import { ErroComponent } from './erro/erro.component';
 
 import { AppRoutingModule } from './app.routing.module';
@@ -26,7 +27,7 @@ import { ControleDeVendaModule } from './controle-de-venda/controle-de-venda.mod
     ClienteModule,
     ControleDeVendaModule
   ],
-  providers: [Events,AutenticacaoService],
+  providers: [Events,AutenticacaoService,CarrinhoDeCompraService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,7 +15,8 @@ namespace Carrinho.API.Domain.Entities
         {
             if(!Itens.Any()) return 0;
 
-            return Itens.Sum(x=>x.PrecoUnitario * x.Quantidade);
+            return Itens.Sum(x=>x.CalcularPrecoTotalDoItem());
         }
+
     }
 }

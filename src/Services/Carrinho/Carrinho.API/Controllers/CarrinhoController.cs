@@ -7,43 +7,49 @@
     using Microsoft.AspNetCore.Mvc;
     using Carrinho.API.Presentation.DTOs;
     using ServiceStack.Redis;
+    using Carrinho.API.Infrastructure.Data;
+    using Carrinho.API.Common;
 
     [Route("api/carrinho")]
     public class CarrinhoController : Controller
     {
-        [HttpGet("{codigoCliente}")]
-        public CarrinhoDeCompraDTO Get(string codigoCliente)
+        private readonly ICarrinhoRepository _carrinhoRepository;
+        public CarrinhoController(ICarrinhoRepository carrinhoRepository)
         {
-            var redisKey = "cart_" + codigoCliente;
-            var mgr = new RedisManagerPool("192.168.2.122:6379");
-            using (var client = mgr.GetClient())
-            {
-                return client.Get<CarrinhoDeCompraDTO>(redisKey);
-            }
+            _carrinhoRepository = carrinhoRepository;
+        }
+        [HttpGet("{codigoCliente}")]
+        public async Task<IActionResult> Get(string codigoCliente)
+        {
+            var carrinhoKey = "cart_" + codigoCliente;
+
+            var carrinho = await _carrinhoRepository.ObterCarrinho(carrinhoKey);
+
+            if (carrinho == null) return StatusCode(204);
+
+            var carrinhoDTO = Mapper.Map(carrinho);
+            return StatusCode(200, carrinhoDTO);
         }
 
         [HttpPost("{codigoCliente}")]
-        public void Post(string codigoCliente, [FromBody]CarrinhoDeCompraDTO carrinho)
+        public async Task<IActionResult> Post(string codigoCliente, [FromBody]CarrinhoDeCompraDTO carrinhoDTO)
         {
-            var redisKey = "cart_" + codigoCliente;
+            var carrinhoKey = "cart_" + codigoCliente;
+            if (carrinhoDTO == null) return StatusCode(400);
 
-            var mgr = new RedisManagerPool("192.168.2.122:6379");
-            using (var client = mgr.GetClient())
-            {
-                client.Set(redisKey, carrinho, DateTime.Now.AddHours(1));
-            }
+            var carrinho = Mapper.Map(carrinhoDTO);
+            await _carrinhoRepository.PersistirCarrinho(carrinhoKey, carrinho);
+
+            return StatusCode(201);
         }
 
         [HttpDelete("{codigoCliente}")]
-        public void Delete(string codigoCliente)
+        public async Task<IActionResult> Delete(string codigoCliente)
         {
-            var redisKey = "cart_" + codigoCliente;
+            var carrinhoKey = "cart_" + codigoCliente;
+            await _carrinhoRepository.RemoverCarrinho(carrinhoKey);
 
-            var mgr = new RedisManagerPool("192.168.2.122:6379");
-            using (var client = mgr.GetClient())
-            {
-                client.Remove(redisKey);
-            }
+            return StatusCode(200);
         }
     }
 }

@@ -1,4 +1,4 @@
-import { DetalheProdutoModel } from './../models/detalhe-produto-model';
+import { DetalheProdutoModel } from '../models/detalhe-produto-model';
 export class ItemAdicionadoAoCarrinhoEventModel{
     /**
      *

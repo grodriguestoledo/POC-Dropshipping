@@ -1,5 +1,5 @@
-import { environment } from './../../../environments/environment';
-import { Injectable } from "../../../../node_modules/@angular/core";
+import { environment } from '../../../environments/environment';
+import { Injectable } from "@angular/core";
 import { HttpClientService } from "./http.client.service";
 import { Events } from '../events/events';
 import { ContaAutenticadaModel } from '../models/conta-autenticada-model';
@@ -8,6 +8,10 @@ import { ContaAutenticadaModel } from '../models/conta-autenticada-model';
 export class AutenticacaoService {
   constructor(private httpClient: HttpClientService, private events: Events) {
 
+  }
+  estaAutenticado() : boolean{
+    let conta = window.localStorage.getItem('conta');
+    return conta != undefined;
   }
   obterConta(): ContaAutenticadaModel {
     let conta = window.localStorage.getItem('conta');

@@ -1,3 +1,4 @@
+import { CarrinhoDeCompraService } from './../common/services/carrinho-de-compra.service';
 import { Component, OnInit } from '@angular/core';
 import { Events } from '../common/events/events';
 import { ContaAutenticadaModel } from '../common/models/conta-autenticada-model';
@@ -11,15 +12,22 @@ import { ItemAdicionadoAoCarrinhoEventModel } from '../common/events/item-adicio
 })
 export class MenuTopoComponent implements OnInit {
 
-  public itensNoCarrinho : number = 0;
+  public itensNoCarrinho: number = 0;
   public conta: ContaAutenticadaModel = undefined;
-  constructor(private events: Events, private autenticacaoService: AutenticacaoService) { }
+  constructor(private events: Events, private autenticacaoService: AutenticacaoService, private carrinhoDeCompraService: CarrinhoDeCompraService) { }
 
   ngOnInit() {
     this.events.usuarioAutenticouEvent.subscribe((res) => { this.onUsuarioAutenticadoHandler(res); });
     this.events.usuarioEfetuouLogoffEvent.subscribe(() => { this.onUsuarioLogoffHandler(); })
-    this.events.itemAdicionadoAoCarrinhoEvent.subscribe((event:ItemAdicionadoAoCarrinhoEventModel) => { this.onItemAdicionadoAoCarrinho(event);})
+    this.events.itemAdicionadoAoCarrinhoEvent.subscribe((event: ItemAdicionadoAoCarrinhoEventModel) => { this.onItemAdicionadoAoCarrinho(event); })
     this.conta = this.autenticacaoService.obterConta() as ContaAutenticadaModel;
+
+    let clienteUID = this.conta != undefined ? this.conta.id : undefined;
+    this.carrinhoDeCompraService.obterCarrinhoDeCompraSalvo(clienteUID).subscribe((carrinho) => {
+      if (carrinho)
+        this.itensNoCarrinho = carrinho.itens.length;
+    });
+
   }
 
   sair() {
@@ -33,7 +41,7 @@ export class MenuTopoComponent implements OnInit {
     this.conta = undefined;
   }
 
-  onItemAdicionadoAoCarrinho(event:ItemAdicionadoAoCarrinhoEventModel) {
+  onItemAdicionadoAoCarrinho(event: ItemAdicionadoAoCarrinhoEventModel) {
     this.itensNoCarrinho += event.quantidade;
   }
 }

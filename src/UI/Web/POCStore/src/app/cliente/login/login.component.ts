@@ -1,8 +1,8 @@
-import { ContaAutenticadaModel } from './../../common/models/conta-autenticada-model';
+import { ContaAutenticadaModel } from '../../common/models/conta-autenticada-model';
 import { Component, OnInit } from '@angular/core';
 import { AutenticacaoService } from '../../common/services/autenticacao.service';
 import { Events } from '../../common/events/events';
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',

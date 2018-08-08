@@ -1,5 +1,6 @@
-import { ItemAdicionadoAoCarrinhoEventModel } from './../../common/events/item-adicionado-ao-carrinho-event.model';
-import { DetalheProdutoModel } from './../../common/models/detalhe-produto-model';
+import { CarrinhoDeCompraService } from './../../common/services/carrinho-de-compra.service';
+import { ItemAdicionadoAoCarrinhoEventModel } from '../../common/events/item-adicionado-ao-carrinho-event.model';
+import { DetalheProdutoModel } from '../../common/models/detalhe-produto-model';
 import { Component, OnInit } from '@angular/core';
 import { ProdutoService } from '../../common/services/produto.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -18,7 +19,8 @@ export class DetalheProdutoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private produtoService: ProdutoService,
-    private events: Events
+    private events: Events,
+    private carrinhoDeCompraService : CarrinhoDeCompraService
     ) {
 
 
@@ -34,9 +36,8 @@ export class DetalheProdutoComponent implements OnInit {
   }
 
   onComprarClick(){
-    let eventArg = new ItemAdicionadoAoCarrinhoEventModel(this.produto,this.quantidade);
-    this.events.itemAdicionadoAoCarrinhoEvent.emit(eventArg);
-
-    this.router.navigate(['carrinho-de-compra']);
+    this.carrinhoDeCompraService.adicionarItemAoCarrinho(this.produto,this.quantidade).subscribe((carrinho)=>{
+      this.router.navigate(['carrinho-de-compra']);
+    });
   }
 }

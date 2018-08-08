@@ -7,5 +7,10 @@ namespace Carrinho.API.Domain.Entities
         public decimal PrecoUnitario { get; set; }
         public string FornecedorUID { get; set; }
         public string Fornecedor { get; set; }
+
+        public decimal CalcularPrecoTotalDoItem()
+        {
+            return Quantidade * PrecoUnitario;
+        }
     }
 }
