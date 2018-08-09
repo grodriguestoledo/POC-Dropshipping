@@ -19,11 +19,8 @@ namespace Carrinho.API.Common
                         PrecoUnitario = x.PrecoUnitario,
                         FornecedorUID = x.FornecedorUID,
                         Fornecedor = x.Fornecedor,
-<<<<<<< HEAD
-                        CodigoProduto = x.CodigoProduto
-=======
+                        CodigoProduto = x.CodigoProduto,
                         ImagemProduto = x.ImagemProduto
->>>>>>> 3ebcbaff5142ece85eec1f35d4772eafda903f75
                     }
                 ).ToList()
             };
@@ -41,11 +38,8 @@ namespace Carrinho.API.Common
                         PrecoUnitario = x.PrecoUnitario,
                         FornecedorUID = x.FornecedorUID,
                         Fornecedor = x.Fornecedor,
-<<<<<<< HEAD
-                        CodigoProduto = x.CodigoProduto
-=======
+                        CodigoProduto = x.CodigoProduto,
                         ImagemProduto = x.ImagemProduto
->>>>>>> 3ebcbaff5142ece85eec1f35d4772eafda903f75
                     }
                 ).ToList()
             };
