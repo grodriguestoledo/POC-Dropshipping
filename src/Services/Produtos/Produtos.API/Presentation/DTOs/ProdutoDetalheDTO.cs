@@ -10,5 +10,6 @@ namespace Presentation.DTO
         public string ImagemProduto { get; set; }
         public string Descricao { get; set; }
         public string Detalhes { get; set; }
+        public string FornecedorUID { get; set; }
     }
 }

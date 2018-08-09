@@ -1,3 +1,33 @@
-<p>
-  carrinho-de-compra works!
-</p>
+<div>
+  <div class="card produto--por--fornecedor mt-3" *ngFor="let fornecedor of itensPorFornecedor">
+    <div class="card-header">
+      Fornecedor: {{fornecedor.nome}}
+
+    </div>
+    <div class="card-body">
+      <div class="row produto mt-4" *ngFor="let item of fornecedor.itens">
+        <div class="col-2 d-none d-sm-block">
+
+        </div>
+        <div class="col-3 produto--nome "><span  >{{item.nomeProduto}}</span></div>
+        <div class="col-3 col-sm-1 produto--preco">
+          <div>Preço</div>
+          {{item.precoUnitario | currency:'R$ ':'symbol':'1.2-2'}}
+        </div>
+        <div class="col-3 col-sm-1 produto--quantidade">
+          <div>Quantidade</div>
+          <input type="number" class="produto--quantidade-input" [(ngModel)]="item.quantidade"  />
+        </div>
+        <div class="col-3 col-sm-1 produto--total">
+          <div>Total</div>
+          {{item.quantidade * item.precoUnitario| currency:'R$ ':'symbol':'1.2-2' }}
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+        <div>
+           Valor Total : {{calculaValorTotalFornecedor(fornecedor)| currency:'R$ ':'symbol':'1.2-2'}}
+        </div>
+    </div>
+  </div>
+</div>

@@ -8,5 +8,6 @@ namespace Presentation.DTO
         public string Categoria { get; set; }
         public string Fornecedor { get; set; }
         public string ImagemProduto { get; set; }
+        public string FornecedorUID { get; set; }
     }
 }

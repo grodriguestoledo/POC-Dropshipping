@@ -20,30 +20,31 @@ namespace Produtos.API.Controllers
         }
         // GET api/values
         [HttpGet]
-        public async Task<ObjectResult> Get(string f = "")
+        public async Task<IActionResult> Get(string f = "")
         {
             var produtos = await _produtoRepository.ObterProdutos(f);
 
-            var listaProdutos = produtos.Select(x=>new ProdutoListagemDTO
+            var listaProdutos = produtos.Select(x => new ProdutoListagemDTO
             {
                 CodigoProduto = x.CodigoProduto,
                 Categoria = x.Categoria,
                 NomeProduto = x.NomeProduto,
                 Preco = x.Preco,
                 Fornecedor = x.Fornecedor,
-                ImagemProduto = x.ImagemUrl
+                ImagemProduto = x.ImagemUrl,
+                FornecedorUID = x.FornecedorUID
             });
 
-            if(!listaProdutos.Any()) return this.StatusCode(404,null);
+            if (!listaProdutos.Any()) return this.StatusCode(404, null);
 
-            return this.StatusCode(200,listaProdutos);
+            return this.StatusCode(200, listaProdutos);
         }
 
         [HttpGet("{codigoProduto}")]
-        public async Task<ObjectResult> GetDetalhe(string codigoProduto)
+        public async Task<IActionResult> GetDetalhe(string codigoProduto)
         {
             var produtoDetalhe = await _produtoRepository.ObterProdutoDetalhe(codigoProduto);
-            if(produtoDetalhe == null) return this.StatusCode(404,null);
+            if (produtoDetalhe == null) return this.StatusCode(404, null);
 
             return this.StatusCode(200, new ProdutoDetalheDTO
             {
@@ -54,7 +55,8 @@ namespace Produtos.API.Controllers
                 NomeProduto = produtoDetalhe.NomeProduto,
                 Preco = produtoDetalhe.Preco,
                 Fornecedor = produtoDetalhe.Fornecedor,
-                ImagemProduto = produtoDetalhe.ImagemUrl
+                ImagemProduto = produtoDetalhe.ImagemUrl,
+                FornecedorUID = produtoDetalhe.FornecedorUID
             });
         }
     }

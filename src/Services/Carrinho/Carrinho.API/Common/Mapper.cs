@@ -18,7 +18,8 @@ namespace Carrinho.API.Common
                         Quantidade = x.Quantidade,
                         PrecoUnitario = x.PrecoUnitario,
                         FornecedorUID = x.FornecedorUID,
-                        Fornecedor = x.Fornecedor
+                        Fornecedor = x.Fornecedor,
+                        CodigoProduto = x.CodigoProduto
                     }
                 ).ToList()
             };
@@ -35,7 +36,8 @@ namespace Carrinho.API.Common
                         Quantidade = x.Quantidade,
                         PrecoUnitario = x.PrecoUnitario,
                         FornecedorUID = x.FornecedorUID,
-                        Fornecedor = x.Fornecedor
+                        Fornecedor = x.Fornecedor,
+                        CodigoProduto = x.CodigoProduto
                     }
                 ).ToList()
             };

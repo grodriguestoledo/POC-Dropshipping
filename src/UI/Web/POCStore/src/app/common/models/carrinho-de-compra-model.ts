@@ -9,10 +9,11 @@ export class CarrinhoDeCompraModel{
     }
 
     adicionarProdutoAoCarrinho(produto:DetalheProdutoModel,quantidade:number) : CarrinhoDeCompraModel{
+        console.log(produto);
         let idxProduto = this.itens.findIndex(p => {return p.codigoProduto == produto.codigoProduto; });
         console.log(idxProduto);
         if (idxProduto == -1) {
-            this.itens.push(new ItemCarrinhoDeCompraModel(produto.codigoProduto,produto.nomeProduto, quantidade, produto.preco, produto.fornecedor, produto.fornecedor));
+            this.itens.push(new ItemCarrinhoDeCompraModel(produto.codigoProduto,produto.nomeProduto, quantidade, produto.preco, produto.fornecedorUID, produto.fornecedor));
         }
         else {
             this.itens[idxProduto].quantidade += quantidade;
