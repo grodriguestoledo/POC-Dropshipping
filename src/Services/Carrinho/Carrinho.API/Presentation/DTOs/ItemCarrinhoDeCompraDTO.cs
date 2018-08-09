@@ -8,5 +8,6 @@ namespace Carrinho.API.Presentation.DTOs
         public decimal PrecoUnitario { get; set; }
         public string FornecedorUID { get; set; }
         public string Fornecedor { get; set; }
+        public string ImagemProduto {get;set;}
     }
 }
