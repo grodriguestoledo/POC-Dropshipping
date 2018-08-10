@@ -7,7 +7,7 @@
     <div class="card-body">
       <div class="row produto mt-4" *ngFor="let item of fornecedor.itens">
         <div class="col-2 d-none d-sm-block">
-
+          <img [src]="item.imagemProduto" class="img-responsive produto--imagem"/>
         </div>
         <div class="col-3 produto--nome "><span  >{{item.nomeProduto}}</span></div>
         <div class="col-3 col-sm-1 produto--preco">
@@ -25,8 +25,8 @@
       </div>
     </div>
     <div class="card-footer">
-        <div>
-           Valor Total : {{calculaValorTotalFornecedor(fornecedor)| currency:'R$ ':'symbol':'1.2-2'}}
+        <div class="carrinho-total-sem-frete">
+           Valor Total (sem frete) : {{calculaValorTotalFornecedor(fornecedor)| currency:'R$ ':'symbol':'1.2-2'}}
         </div>
     </div>
   </div>

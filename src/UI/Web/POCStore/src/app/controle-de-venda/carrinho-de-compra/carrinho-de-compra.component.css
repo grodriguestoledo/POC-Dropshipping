@@ -11,6 +11,10 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+img.produto--imagem{
+    max-width: 125px;
+    max-height: 125px;
+}
 
  @media (min-width: 577px) { 
     .produto--quantidade input {
@@ -31,6 +35,9 @@
         max-width: 50px ;
     }
     .produto--total {
+        font-size: 0.75em;
+    }
+    .carrinho-total-sem-frete{
         font-size: 0.75em;
     }
  }

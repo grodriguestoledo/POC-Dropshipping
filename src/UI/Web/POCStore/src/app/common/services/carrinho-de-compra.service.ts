@@ -14,7 +14,6 @@ export class CarrinhoDeCompraService {
         private httpClient: HttpClientService,
         private autenticacaoService: AutenticacaoService,
         private events: Events) {
-        console.log('criou o evento');
         events.usuarioAutenticouEvent.subscribe((conta) => { this.onUsuarioAutenticouEventHandler(conta); })
 
     }
@@ -39,7 +38,15 @@ export class CarrinhoDeCompraService {
             else {
                 let carrinhoKey = "cart";
                 let carrinhoSalvoStr = window.localStorage.getItem(carrinhoKey);
-                let carrinho = !carrinhoSalvoStr ? new CarrinhoDeCompraModel() : JSON.parse(carrinhoSalvoStr) as CarrinhoDeCompraModel;
+                let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
+                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : undefined;
+
+                if (carrinho) {
+                    for (let i = 0; i < carrinhoJSON.itens.length; i++) {
+                        let item = carrinhoJSON.itens[i];
+                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto,item.nomeProduto,item.quantidade,item.precoUnitario,item.fornecedorUID,item.fornecedor,item.imagemProduto));
+                    }
+                }
 
                 carrinho.adicionarProdutoAoCarrinho(produto, quantidade);
                 window.localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
@@ -75,7 +82,16 @@ export class CarrinhoDeCompraService {
             else {
                 let carrinhoKey = "cart";
                 let carrinhoSalvoStr = window.localStorage.getItem(carrinhoKey);
-                let carrinho = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr) as CarrinhoDeCompraModel;
+                let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
+                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : undefined;
+
+                if (carrinho) {
+                    for (let i = 0; i < carrinhoJSON.itens.length; i++) {
+                        let item = carrinhoJSON.itens[i];
+                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto,item.nomeProduto,item.quantidade,item.precoUnitario,item.fornecedorUID,item.fornecedor,item.imagemProduto));
+                    }
+                }
+
                 obs.next(carrinho);
                 obs.complete();
             }

@@ -19,26 +19,29 @@ export class CarrinhoDeCompraComponent implements OnInit {
 
   ngOnInit() {
     let conta = this.autenticacaoService.obterConta();
-    if (conta) {
-      this.carrinhoDeCompraService.obterCarrinhoDeCompraSalvo(conta.id).subscribe((c) => {
-        this.carrinho = c;
-        // this.fornecedores = this.carrinho.itens.map((x) => ( { fornecedorUID: x.fornecedorUID, fornecedor:x.fornecedor }));
+    let contaId = conta ? conta.id : undefined;
+    this.obterCarrinho(contaId);
 
-        let fornecedoresUIDDistinct = Array.from(new Set(this.carrinho.itens.map((x) => x.fornecedorUID)));
-
-        for (let i = 0; i < fornecedoresUIDDistinct.length; i++) {
-          let fornecedorUID = fornecedoresUIDDistinct[i];
-          let itensAComprarDoFornecedor = this.carrinho.itens.filter(x => x.fornecedorUID == fornecedorUID);
-          this.itensPorFornecedor.push({ valorFrete :0, fornecedorUID: fornecedorUID, nome:itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
-        }
-    
-      });
-    }
   }
 
-  calculaValorTotalFornecedor(fornecedor){
+  obterCarrinho(contaId) {
+    this.carrinhoDeCompraService.obterCarrinhoDeCompraSalvo(contaId).subscribe((c) => {
+      this.carrinho = c;
+      // this.fornecedores = this.carrinho.itens.map((x) => ( { fornecedorUID: x.fornecedorUID, fornecedor:x.fornecedor }));
+      let fornecedoresUIDDistinct = Array.from(new Set(this.carrinho.itens.map((x) => x.fornecedorUID)));
 
-  return fornecedor.itens.map(x=>x.quantidade * x.precoUnitario).reduce((somaTotal,valorAtual)=> somaTotal + valorAtual);
+      for (let i = 0; i < fornecedoresUIDDistinct.length; i++) {
+        let fornecedorUID = fornecedoresUIDDistinct[i];
+        let itensAComprarDoFornecedor = this.carrinho.itens.filter(x => x.fornecedorUID == fornecedorUID);
+        this.itensPorFornecedor.push({ valorFrete: 0, fornecedorUID: fornecedorUID, nome: itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
+      }
+
+    });
+  }
+
+  calculaValorTotalFornecedor(fornecedor) {
+
+    return fornecedor.itens.map(x => x.quantidade * x.precoUnitario).reduce((somaTotal, valorAtual) => somaTotal + valorAtual);
   }
 
 }
