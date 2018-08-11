@@ -15,7 +15,7 @@ namespace Cliente.API.Controllers
         {
             _context = context;
         }
-        [HttpGet("{contaUID}")]
+        [HttpGet("{contaUID}/enderecos")]
         public IActionResult GetEnderecosDoCliente(string contaUID)
         {
             var cliente = _context.Clientes.FirstOrDefault(x => x.ContaUID.ToString() == contaUID);

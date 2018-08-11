@@ -2,7 +2,7 @@ import { ContaAutenticadaModel } from '../../common/models/conta-autenticada-mod
 import { Component, OnInit } from '@angular/core';
 import { AutenticacaoService } from '../../common/services/autenticacao.service';
 import { Events } from '../../common/events/events';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +11,32 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private autenticacaoService: AutenticacaoService, private events : Events, private router : Router) { }
+  public urlRedirPosLogin: string;
+  constructor(
+    private autenticacaoService: AutenticacaoService,
+    private events: Events,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.events.usuarioAutenticouEvent.subscribe((res)=>{this.onUsuarioAutenticadoHandler(res);});
+    this.route.queryParamMap.subscribe((params) => {
+      let paramUrl = params.get('redir');
+      if (paramUrl && paramUrl != '') {
+        this.urlRedirPosLogin = atob(paramUrl);
+      }
+    });
+    this.events.usuarioAutenticouEvent.subscribe((res) => { this.onUsuarioAutenticadoHandler(res); });
   }
 
   autenticar(form) {
-    this.autenticacaoService.autenticar(form.value.email,form.value.senha);
+    this.autenticacaoService.autenticar(form.value.email, form.value.senha);
   }
 
-  onUsuarioAutenticadoHandler(conta:ContaAutenticadaModel){
-    this.router.navigate(['']);
+  onUsuarioAutenticadoHandler(conta: ContaAutenticadaModel) {
+    if (this.urlRedirPosLogin && this.urlRedirPosLogin != '') {
+      this.router.navigateByUrl(this.urlRedirPosLogin);
+    }
+    else this.router.navigate(['']);
   }
 }
