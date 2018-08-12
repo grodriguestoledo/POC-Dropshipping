@@ -16,6 +16,7 @@ import { AutenticacaoService } from './common/services/autenticacao.service';
 import { ControleDeVendaModule } from './controle-de-venda/controle-de-venda.module';
 import { PedidoService } from './common/services/pedido.service';
 import { LoaderComponent } from './loader/loader.component';
+import { FornecedorService } from './common/services/fornecedor.service';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { LoaderComponent } from './loader/loader.component';
     ControleDeVendaModule
     
   ],
-  providers: [Events,AutenticacaoService,CarrinhoDeCompraService, ClienteService,PedidoService, LoaderService],
+  providers: [Events,AutenticacaoService,CarrinhoDeCompraService, ClienteService,PedidoService, LoaderService,FornecedorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,7 +24,7 @@
    
 <div class="row mt-3" >
   <div class="col-12">
-      <h1>Produtos no Carrinho</h1>
+      <h1 class="carrinho--title">Produtos no Carrinho</h1>
 
       <div class="card produto--por--fornecedor mt-3" *ngFor="let fornecedor of itensPorFornecedor">
           <div class="card-header">
@@ -56,15 +56,18 @@
           <div class="card-footer">
             <div class="carrinho-total-sem-frete">
               <div class="row">
-                  <div class="col-12 col-sm-4">
+                  <div class="col-12 col-sm-3">
                      <b> Valor Total (sem frete) :</b> {{calculaValorTotalFornecedorSemFrete(fornecedor)| currency:'R$ ':'symbol':'1.2-2'}}
                   </div>
-                  <div class="col-12 col-sm-4" *ngIf="estaAutenticado" >
+                  <div class="col-12 col-sm-3" *ngIf="estaAutenticado" >
                     <b>Frete : </b>
                     <span *ngIf="fornecedor.valorFrete == 0" >Frete Grátis</span>
                     <span *ngIf="fornecedor.valorFrete > 0" >{{fornecedor.valorFrete | currency:'R$ ':'symbol':'1.2-2'}}</span>
                   </div>
-                  <div class="col-12 col-sm-4" *ngIf="estaAutenticado">
+                  <div class="col-12 col-sm-3"  *ngIf="estaAutenticado" >
+                    <b>Prazo de entrega:</b> {{ fornecedor.diasMinimosParaEntrega + ' - ' + fornecedor.diasMaximosParaEntrega + ' dias' }}
+                  </div>
+                  <div class="col-12 col-sm-3" *ngIf="estaAutenticado">
                       <b>Valor Total (com frete) :</b>  {{calculaValorTotalFornecedorComFrete(fornecedor)| currency:'R$ ':'symbol':'1.2-2'}}
                   </div>
               </div>  
@@ -80,7 +83,7 @@
     <div class="card text-white bg-dark">
       <div class="card-header">
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-4 mb-2">
             <span><b>Total da Compra:</b> {{calcularTotal()| currency:'R$ ':'symbol':'1.2-2'}}</span>
           </div>
           <div class="col-sm-2">

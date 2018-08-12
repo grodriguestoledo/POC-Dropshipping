@@ -54,7 +54,7 @@ namespace APIGateway.Ocelot
 
             services.AddAuthentication().AddIdentityServerAuthentication(providerName, options);
 
-            services.AddOcelot(Configuration);
+            services.AddOcelot(Configuration).AddCacheManager(x=>{x.WithDictionaryHandle();});
 
         }
 

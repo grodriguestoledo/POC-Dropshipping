@@ -11,6 +11,9 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.carrinho--title{
+    font-size: 1.2rem;
+}
 img.produto--imagem{
     max-width: 80px;
     max-height: 80px;

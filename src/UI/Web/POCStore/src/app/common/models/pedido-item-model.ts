@@ -4,7 +4,7 @@ export class PedidoItemModel {
     /**
      *
      */
-    constructor(public fornecedorUID?:string, public fornecedor?:string, public valorFrete?:number, public prazoEntrega?:number) {
+    constructor(public fornecedorUID?:string, public fornecedor?:string, public valorFrete?:number, public prazoMinimoEntrega?:number,public prazoMaximoEntrega?:number) {
         
     }
 }

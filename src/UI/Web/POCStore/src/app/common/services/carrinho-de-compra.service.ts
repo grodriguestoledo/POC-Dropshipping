@@ -100,6 +100,9 @@ export class CarrinhoDeCompraService {
             }
         });
     }
+
+    
+
     private salvarCarrinhoDeCompraServidor(clienteUID: string, carrinho: CarrinhoDeCompraModel): Observable<any> {
         return new Observable((obs) => {
             this.httpClient.post('/carrinho/' + clienteUID, carrinho).subscribe((res) => {

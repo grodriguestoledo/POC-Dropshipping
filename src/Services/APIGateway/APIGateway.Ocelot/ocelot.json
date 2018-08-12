@@ -32,7 +32,8 @@
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" }
     },
     {
       "DownstreamPathTemplate": "/api/produtos/{catchAll}",
@@ -50,7 +51,8 @@
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" }
     },
     {
       "DownstreamPathTemplate": "/api/carrinho",

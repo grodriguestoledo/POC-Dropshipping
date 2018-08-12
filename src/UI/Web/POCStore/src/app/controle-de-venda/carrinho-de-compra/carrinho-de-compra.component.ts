@@ -1,3 +1,4 @@
+import { FornecedorService } from './../../common/services/fornecedor.service';
 import { PedidoSubItemModel } from '../../common/models/pedido-item-subitem-model';
 import { PedidoItemModel } from '../../common/models/pedido-item-model';
 import { PedidoCadastroModel } from '../../common/models/pedido-cadastro-model';
@@ -27,6 +28,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
     private carrinhoDeCompraService: CarrinhoDeCompraService,
     private autenticacaoService: AutenticacaoService,
     private clienteService: ClienteService,
+    private fornecedorService: FornecedorService,
     private pedidoService: PedidoService
   ) {
 
@@ -54,7 +56,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
       for (let i = 0; i < fornecedoresUIDDistinct.length; i++) {
         let fornecedorUID = fornecedoresUIDDistinct[i];
         let itensAComprarDoFornecedor = this.carrinho.itens.filter(x => x.fornecedorUID == fornecedorUID);
-        this.itensPorFornecedor.push({ freteCalculado: false, valorFrete: 0, fornecedorUID: fornecedorUID, nome: itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
+        this.itensPorFornecedor.push({ freteCalculado: false, valorFrete: 0, diasMinimosParaEntrega:0, diasMaximosParaEntrega:0,fornecedorUID: fornecedorUID, nome: itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
       }
       if (this.enderecoSelecionado) {
         this.calcularFreteDosItens(this.enderecoSelecionado);
@@ -84,14 +86,12 @@ export class CarrinhoDeCompraComponent implements OnInit {
     }
   }
   calcularFrete(itemPorFornecedor, cep) {
-    if (itemPorFornecedor.nome == 'Golden') {
+    this.fornecedorService.obterDadosDeEntrega(itemPorFornecedor.fornecedorUID, cep).subscribe((entrega)=>{
       itemPorFornecedor.freteCalculado = true;
-      itemPorFornecedor.valorFrete = 9.99;
-    }
-    else {
-      itemPorFornecedor.freteCalculado = true;
-      itemPorFornecedor.valorFrete = 0;
-    }
+      itemPorFornecedor.valorFrete = entrega.valorFrete;
+      itemPorFornecedor.diasMinimosParaEntrega = entrega.minimoDiasEntrega;
+      itemPorFornecedor.diasMaximosParaEntrega = entrega.maximoDiasEntrega;
+    });
   }
 
   calcularTotal() {
@@ -104,7 +104,6 @@ export class CarrinhoDeCompraComponent implements OnInit {
   }
 
   checkout() {
-    //let estaAutenticado = this.autenticacaoService.estaAutenticado();
     if (!this.estaAutenticado) {
       let url = btoa('carrinho-de-compra');
       this.router.navigate(['autenticar'], { queryParams: { 'redir': url } });
@@ -114,7 +113,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
     let pedido = new PedidoCadastroModel();
     for (let i = 0; i < this.itensPorFornecedor.length; i++) {
       let fornecedorItens = this.itensPorFornecedor[i];
-      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome,fornecedorItens.valorFrete);
+      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome,fornecedorItens.valorFrete, fornecedorItens.diasMinimosParaEntrega, fornecedorItens.diasMinimosParaEntrega);
       for (let y = 0; y < fornecedorItens.itens.length; y++) {
         let itemFornecedor = fornecedorItens.itens[y];
         let subitem = new PedidoSubItemModel(itemFornecedor.codigoProduto,itemFornecedor.imagemProduto,itemFornecedor.nomeProduto, itemFornecedor.quantidade,itemFornecedor.precoUnitario);
@@ -126,7 +125,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
     pedido.enderecoParaEntrega = this.enderecoSelecionado;
 
     this.pedidoService.registrarPedido(pedido).subscribe(()=>{
-
+      
     });
   }
 }
