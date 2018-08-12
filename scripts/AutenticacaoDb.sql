@@ -65,4 +65,5 @@ VALUES (N'20180727193954_AutenticacaoInicialMigration', N'2.0.3-rtm-10026');
 GO
 
 INSERT INTO [Conta] VALUES (NEWID(),'admin','Administrador','jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=','da Loja',1)
+INSERT INTO [Conta] VALUES ('331EDE85-A37C-4F77-89BF-BB1F168C8305','cliente@poc.com.br','Cliente','pguF1AmgHUYCP5B0HgG3lUOjyxugSOrvvl16Y2OAQ78=','da Poc',3)
 

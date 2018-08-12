@@ -9,8 +9,8 @@ namespace Cliente.API.Infrastructure.Data.Configuration
             builder.ToTable("Clientes");
             builder.HasKey(x => x.ClienteId);
             builder.Property(x => x.ClienteId).HasColumnName("CLIENTE_ID").UseSqlServerIdentityColumn().IsRequired();
+
             builder.Property(x => x.ContaUID).HasColumnName("CONTA_UID").HasColumnType("uniqueidentifier").IsRequired();
-            builder.Property(x => x.ClienteId).HasColumnName("UID").HasColumnType("uniqueidentifier").IsRequired();
             builder.Property(x=>x.Nome).HasColumnName("NOME").IsRequired();
             builder.Property(x=>x.Sobrenome).HasColumnName("SOBRENOME").IsRequired();
             builder.Property(x=>x.Email).HasColumnName("EMAIL").IsRequired();

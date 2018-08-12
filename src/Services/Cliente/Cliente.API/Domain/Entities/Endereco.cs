@@ -1,3 +1,5 @@
+using System;
+
 namespace Cliente.API.Domain.Entities
 {
     public class Endereco
@@ -11,5 +13,7 @@ namespace Cliente.API.Domain.Entities
         public string CEP { get; set; }
         public string UF { get; set; }
         public bool EhEnderecoPrincipal { get; set; }
+        public Guid UID { get; set; }
+        public string Descricao { get; set; }
     }
 }

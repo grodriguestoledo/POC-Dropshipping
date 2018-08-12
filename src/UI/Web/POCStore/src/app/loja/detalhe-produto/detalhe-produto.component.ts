@@ -1,4 +1,4 @@
-import { CarrinhoDeCompraService } from './../../common/services/carrinho-de-compra.service';
+import { CarrinhoDeCompraService } from '../../common/services/carrinho-de-compra.service';
 import { ItemAdicionadoAoCarrinhoEventModel } from '../../common/events/item-adicionado-ao-carrinho-event.model';
 import { DetalheProdutoModel } from '../../common/models/detalhe-produto-model';
 import { Component, OnInit } from '@angular/core';

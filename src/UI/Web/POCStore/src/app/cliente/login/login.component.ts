@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('oie');
     this.route.queryParamMap.subscribe((params) => {
       let paramUrl = params.get('redir');
       if (paramUrl && paramUrl != '') {

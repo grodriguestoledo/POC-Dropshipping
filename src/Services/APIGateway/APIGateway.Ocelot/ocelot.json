@@ -87,6 +87,42 @@
         "Delete",
         "Options"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/cliente",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "clienteapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/cliente",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/cliente/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "clienteapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/cliente/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ]
     }
   ],
   "GlobalConfiguration": {}

@@ -1,3 +1,4 @@
+import { CarrinhoVazioComponent } from './controle-de-venda/carrinho-vazio/carrinho-vazio.component';
 import { LoginComponent } from './cliente/login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -31,6 +32,10 @@ const appRoutes: Routes = [
     {
         path:'carrinho-de-compra',
         component:CarrinhoDeCompraComponent
+    },
+    {
+        path:'carrinho-de-compra/vazio',
+        component:CarrinhoVazioComponent
     },
     {
         path:'**',

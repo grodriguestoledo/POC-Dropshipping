@@ -12,8 +12,8 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 img.produto--imagem{
-    max-width: 125px;
-    max-height: 125px;
+    max-width: 80px;
+    max-height: 80px;
 }
 
  @media (min-width: 577px) { 

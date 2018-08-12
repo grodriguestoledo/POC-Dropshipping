@@ -24,5 +24,10 @@ namespace Autenticacao.API.Domain.Entities
         {
             return this.Senha.Equals(tentativaDeSenha);
         }
+
+        public bool EhCliente()
+        {
+            return TipoConta == EnumTipoConta.Cliente;
+        }
     }
 }

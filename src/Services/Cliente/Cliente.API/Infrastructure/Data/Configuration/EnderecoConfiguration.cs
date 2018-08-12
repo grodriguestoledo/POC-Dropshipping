@@ -10,6 +10,9 @@ namespace Cliente.API.Infrastructure.Data.Configuration
             builder.HasKey(x => x.EnderecoId);
             builder.Property(x => x.EnderecoId).HasColumnName("ENDERECO_ID").UseSqlServerIdentityColumn().IsRequired();
 
+            builder.Property(x=>x.Descricao).HasColumnName("DESCRICAO").IsRequired();
+            builder.Property(x=>x.UID).HasColumnName("UID").HasColumnType("uniqueidentifier").IsRequired();
+
             builder.Property(x => x.Logradouro).HasColumnName("LOGRADOURO").IsRequired();
             builder.Property(x => x.Bairro).HasColumnName("BAIRRO").IsRequired();
             builder.Property(x => x.CEP).HasColumnName("CEP").IsRequired();

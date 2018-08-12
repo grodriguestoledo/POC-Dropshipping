@@ -1,3 +1,5 @@
+import { LoaderService } from './common/services/loader.service';
+import { ClienteService } from './common/services/cliente.service';
 import { CarrinhoDeCompraService } from './common/services/carrinho-de-compra.service';
 import { ErroComponent } from './erro/erro.component';
 
@@ -12,13 +14,16 @@ import { ClienteModule } from './cliente/cliente.module';
 import { Events } from './common/events/events';
 import { AutenticacaoService } from './common/services/autenticacao.service';
 import { ControleDeVendaModule } from './controle-de-venda/controle-de-venda.module';
+import { PedidoService } from './common/services/pedido.service';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuTopoComponent,
-    ErroComponent
+    ErroComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -26,8 +31,9 @@ import { ControleDeVendaModule } from './controle-de-venda/controle-de-venda.mod
     LojaModule,
     ClienteModule,
     ControleDeVendaModule
+    
   ],
-  providers: [Events,AutenticacaoService,CarrinhoDeCompraService],
+  providers: [Events,AutenticacaoService,CarrinhoDeCompraService, ClienteService,PedidoService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

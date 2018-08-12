@@ -1,21 +1,21 @@
-import { DetalheProdutoModel } from './../models/detalhe-produto-model';
-import { CarrinhoDeCompraModel } from './../models/carrinho-de-compra-model';
+import { DetalheProdutoModel } from '../models/detalhe-produto-model';
+import { CarrinhoDeCompraModel } from '../models/carrinho-de-compra-model';
 import { Injectable } from '@angular/core';
 import { HttpClientService } from './http.client.service';
 import { Events } from '../events/events';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { ItemAdicionadoAoCarrinhoEventModel } from '../events/item-adicionado-ao-carrinho-event.model';
 import { AutenticacaoService } from './autenticacao.service';
 import { ItemCarrinhoDeCompraModel } from '../models/item-carrinho-de-compra-model';
 import { ContaAutenticadaModel } from '../models/conta-autenticada-model';
 @Injectable()
 export class CarrinhoDeCompraService {
+    public carrinhoKey: string = "cart";
     constructor(
         private httpClient: HttpClientService,
         private autenticacaoService: AutenticacaoService,
         private events: Events) {
         events.usuarioAutenticouEvent.subscribe((conta) => { this.onUsuarioAutenticouEventHandler(conta); })
-
     }
 
     adicionarItemAoCarrinho(produto: DetalheProdutoModel, quantidade: number): Observable<CarrinhoDeCompraModel> {
@@ -27,7 +27,9 @@ export class CarrinhoDeCompraService {
                         carrinho = new CarrinhoDeCompraModel();
                     }
                     carrinho.adicionarProdutoAoCarrinho(produto, quantidade);
-                    this.salvarCarrinhoDeCompra(conta.id, carrinho).subscribe(() => {
+                    this.salvarCarrinhoDeCompraLocalStorage(carrinho);
+
+                    this.salvarCarrinhoDeCompraServidor(conta.id, carrinho).subscribe(() => {
                         let eventArg = new ItemAdicionadoAoCarrinhoEventModel(produto, quantidade);
                         this.events.itemAdicionadoAoCarrinhoEvent.emit(eventArg);
                         obs.next(carrinho);
@@ -36,20 +38,21 @@ export class CarrinhoDeCompraService {
                 });
             }
             else {
-                let carrinhoKey = "cart";
-                let carrinhoSalvoStr = window.localStorage.getItem(carrinhoKey);
-                let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
-                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : undefined;
 
-                if (carrinho) {
+                let carrinhoSalvoStr = window.localStorage.getItem(this.carrinhoKey);
+                console.log(carrinhoSalvoStr);
+                let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
+                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : new CarrinhoDeCompraModel();
+
+                if (carrinho && carrinhoJSON.itens && carrinhoJSON.itens.length) {
                     for (let i = 0; i < carrinhoJSON.itens.length; i++) {
                         let item = carrinhoJSON.itens[i];
-                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto,item.nomeProduto,item.quantidade,item.precoUnitario,item.fornecedorUID,item.fornecedor,item.imagemProduto));
+                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto, item.nomeProduto, item.quantidade, item.precoUnitario, item.fornecedorUID, item.fornecedor, item.imagemProduto));
                     }
                 }
 
                 carrinho.adicionarProdutoAoCarrinho(produto, quantidade);
-                window.localStorage.setItem(carrinhoKey, JSON.stringify(carrinho));
+                this.salvarCarrinhoDeCompraLocalStorage(carrinho);
                 let eventArg = new ItemAdicionadoAoCarrinhoEventModel(produto, quantidade);
                 this.events.itemAdicionadoAoCarrinhoEvent.emit(eventArg);
                 obs.next(carrinho);
@@ -80,15 +83,15 @@ export class CarrinhoDeCompraService {
                 });
             }
             else {
-                let carrinhoKey = "cart";
-                let carrinhoSalvoStr = window.localStorage.getItem(carrinhoKey);
+                let carrinhoSalvoStr = window.localStorage.getItem(this.carrinhoKey);
+                console.log(carrinhoSalvoStr);
                 let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
                 let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : undefined;
 
                 if (carrinho) {
                     for (let i = 0; i < carrinhoJSON.itens.length; i++) {
                         let item = carrinhoJSON.itens[i];
-                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto,item.nomeProduto,item.quantidade,item.precoUnitario,item.fornecedorUID,item.fornecedor,item.imagemProduto));
+                        carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto, item.nomeProduto, item.quantidade, item.precoUnitario, item.fornecedorUID, item.fornecedor, item.imagemProduto));
                     }
                 }
 
@@ -97,7 +100,7 @@ export class CarrinhoDeCompraService {
             }
         });
     }
-    private salvarCarrinhoDeCompra(clienteUID: string, carrinho: CarrinhoDeCompraModel): Observable<any> {
+    private salvarCarrinhoDeCompraServidor(clienteUID: string, carrinho: CarrinhoDeCompraModel): Observable<any> {
         return new Observable((obs) => {
             this.httpClient.post('/carrinho/' + clienteUID, carrinho).subscribe((res) => {
                 obs.next(true);
@@ -110,15 +113,15 @@ export class CarrinhoDeCompraService {
 
         });
     }
-
+    private salvarCarrinhoDeCompraLocalStorage(carrinho) {
+        window.localStorage.setItem(this.carrinhoKey, JSON.stringify(carrinho));
+    }
     private onUsuarioAutenticouEventHandler(conta: ContaAutenticadaModel) {
-        let carrinhoKey = "cart";
-        let carrinhoSalvoStr = window.localStorage.getItem(carrinhoKey);
+        let carrinhoSalvoStr = window.localStorage.getItem(this.carrinhoKey);
         let carrinho = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr) as CarrinhoDeCompraModel;
 
         if (carrinho) {
-            this.salvarCarrinhoDeCompra(conta.id, carrinho).subscribe(() => {
-                window.localStorage.removeItem(carrinhoKey);
+            this.salvarCarrinhoDeCompraServidor(conta.id, carrinho).subscribe(() => {
             });
         }
     }

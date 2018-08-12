@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Autenticacao.API.Domain.Entities;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
@@ -16,17 +17,17 @@ namespace Autenticacao.API.Infrastructure.Identity
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             var senhaCriptografada = context.Password.Sha256();
-            var conta = await _context.Contas.FirstOrDefaultAsync(x=>x.Login == context.UserName);
-            if(conta != null) 
+            var conta = await _context.Contas.FirstOrDefaultAsync(x => x.Login == context.UserName);
+            if (conta != null)
             {
-                if(conta.ConferirSenha(senhaCriptografada))
+                if (conta.ConferirSenha(senhaCriptografada) && conta.EhCliente())
                 {
-                    context.Result = new GrantValidationResult(conta.ContaUID.ToString(),OidcConstants.GrantTypes.Password);
+                    context.Result = new GrantValidationResult(conta.ContaUID.ToString(), OidcConstants.GrantTypes.Password);
                     return;
                 }
             }
 
-            context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant,"usuário ou senha inválidos");
+            context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant, "usuário ou senha inválidos");
         }
     }
 }

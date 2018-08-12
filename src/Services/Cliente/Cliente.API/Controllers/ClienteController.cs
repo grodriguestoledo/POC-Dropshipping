@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cliente.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cliente.API.Controllers
 {
@@ -18,7 +19,7 @@ namespace Cliente.API.Controllers
         [HttpGet("{contaUID}/enderecos")]
         public IActionResult GetEnderecosDoCliente(string contaUID)
         {
-            var cliente = _context.Clientes.FirstOrDefault(x => x.ContaUID.ToString() == contaUID);
+            var cliente = _context.Clientes.Include(x=>x.Enderecos).FirstOrDefault(x => x.ContaUID.ToString() == contaUID);
             if(cliente == null) return StatusCode(404);
 
             return StatusCode(200,cliente.Enderecos);
