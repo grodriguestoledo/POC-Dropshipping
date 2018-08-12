@@ -113,7 +113,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
     let pedido = new PedidoCadastroModel();
     for (let i = 0; i < this.itensPorFornecedor.length; i++) {
       let fornecedorItens = this.itensPorFornecedor[i];
-      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome,fornecedorItens.valorFrete, fornecedorItens.diasMinimosParaEntrega, fornecedorItens.diasMinimosParaEntrega);
+      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome,fornecedorItens.valorFrete, fornecedorItens.diasMinimosParaEntrega, fornecedorItens.diasMaximosParaEntrega);
       for (let y = 0; y < fornecedorItens.itens.length; y++) {
         let itemFornecedor = fornecedorItens.itens[y];
         let subitem = new PedidoSubItemModel(itemFornecedor.codigoProduto,itemFornecedor.imagemProduto,itemFornecedor.nomeProduto, itemFornecedor.quantidade,itemFornecedor.precoUnitario);
@@ -123,9 +123,9 @@ export class CarrinhoDeCompraComponent implements OnInit {
       pedido.itens.push(itemPedido)
     }
     pedido.enderecoParaEntrega = this.enderecoSelecionado;
-
+    console.log(pedido);
     this.pedidoService.registrarPedido(pedido).subscribe(()=>{
-      
+
     });
   }
 }

@@ -25,7 +25,7 @@ export class AutenticacaoService {
   }
   autenticar(login: string, senha: string) {
     this.httpClient.post('/federation/token',
-      `grant_type=password&client_id=${environment.clientId}&client_secret=${environment.clientSecret}&username=${login}&password=${senha}&scope=openid`,
+      `grant_type=password&client_id=${environment.clientId}&client_secret=${environment.clientSecret}&username=${login}&password=${senha}&scope=openid poc-api.all`,
       'application/x-www-form-urlencoded').subscribe((res) => {
 
         window.localStorage.setItem('token', res['access_token']);

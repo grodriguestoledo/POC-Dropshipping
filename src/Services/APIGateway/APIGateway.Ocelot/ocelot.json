@@ -125,6 +125,50 @@
         "Delete",
         "Options"
       ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/pedidos/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pedidosapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pedidos/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-server",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/pedidos",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pedidosapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/pedidos",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-server",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {}
