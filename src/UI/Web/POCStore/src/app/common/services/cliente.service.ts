@@ -16,7 +16,7 @@ export class ClienteService {
 
             this.httpClient.get('/cliente/' + contaUID + '/enderecos').subscribe((res: EnderecoModel[]) => {
                 let retorno = res.map(m => {
-                    return new EnderecoModel(m.enderecoId,m.bairro,m.cep,m.cidade,m.complemento,m.descricao,m.ehEnderecoPrincipal,m.logradouro,m.numero,m.uf,m.uid);
+                    return new EnderecoModel(m.enderecoId, m.bairro, m.cep, m.cidade, m.complemento, m.descricao, m.ehEnderecoPrincipal, m.logradouro, m.numero, m.uf, m.uid);
                 });
                 obs.next(retorno);
                 obs.complete();

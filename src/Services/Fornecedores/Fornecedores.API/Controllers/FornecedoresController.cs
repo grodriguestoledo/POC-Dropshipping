@@ -14,17 +14,40 @@ namespace Fornecedores.API.Controllers
         private readonly IFornecedoresDbContext _context;
         public FornecedoresController(IFornecedoresDbContext context)
         {
-            _context=context;
+            _context = context;
         }
-        // GET api/values
+
         [HttpGet("{codigoFornecedor}")]
         public async Task<IActionResult> GetFornecedor(Guid codigoFornecedor)
         {
-            var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(x=>x.CodigoFornecedor==codigoFornecedor);
+            var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(x => x.CodigoFornecedor == codigoFornecedor);
 
-            if(fornecedor == null) return StatusCode(404);
+            if (fornecedor == null) return StatusCode(404);
 
-            return StatusCode(200,fornecedor);
+            return StatusCode(200, fornecedor);
+        }
+
+        [HttpGet("{codigoFornecedor}/frete/{cep}")]
+        public async Task<IActionResult> GetDadosDaEntregaPeloFornecedor(Guid codigoFornecedor, string cep)
+        {
+            return await Task.Factory.StartNew<IActionResult>(() =>
+            {
+                if (cep == "09850090")
+                {
+                    return StatusCode(200, new
+                    {
+                        maximoDiasEntrega = 15,
+                        minimoDiasEntrega = 8,
+                        valorFrete = 20.88
+                    });
+                }
+                return StatusCode(200, new
+                {
+                    maximoDiasEntrega = 10,
+                    minimoDiasEntrega = 4,
+                    valorFrete = 0
+                });
+            });
         }
     }
 }

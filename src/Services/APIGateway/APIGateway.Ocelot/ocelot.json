@@ -169,6 +169,50 @@
         "AuthenticationProviderKey": "identity-server",
         "AllowedScopes": []
       }
+    },
+    {
+      "DownstreamPathTemplate": "/api/fornecedores/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "fornecedoresapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/fornecedores/{everything}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-server",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/fornecedores",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "fornecedoresapi",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/fornecedores",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete",
+        "Options"
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "identity-server",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {}

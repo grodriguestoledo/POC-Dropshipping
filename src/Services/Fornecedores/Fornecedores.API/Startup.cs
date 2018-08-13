@@ -32,7 +32,7 @@ namespace Fornecedores.API
 
             var migrationAssembly = this.GetType().GetTypeInfo().Assembly.GetName().Name;
             services.AddDbContext<FornecedoresDbContext>(options => { options.UseSqlServer(connectionStr, sqlOptions => sqlOptions.MigrationsAssembly(migrationAssembly)); });
-
+            services.AddScoped<IFornecedoresDbContext>(provider => provider.GetService<FornecedoresDbContext>());
             services.AddMvc();
         }
 
