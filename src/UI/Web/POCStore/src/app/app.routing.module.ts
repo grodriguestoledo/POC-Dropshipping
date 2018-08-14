@@ -1,3 +1,4 @@
+import { HistoricoPedidosComponent } from './controle-de-venda/historico-pedidos/historico-pedidos.component';
 import { CarrinhoVazioComponent } from './controle-de-venda/carrinho-vazio/carrinho-vazio.component';
 import { LoginComponent } from './cliente/login/login.component';
 import { NgModule } from '@angular/core';
@@ -36,6 +37,10 @@ const appRoutes: Routes = [
     {
         path:'carrinho-de-compra/vazio',
         component:CarrinhoVazioComponent
+    },
+    {
+        path:'historico-pedidos',
+        component: HistoricoPedidosComponent
     },
     {
         path:'**',
