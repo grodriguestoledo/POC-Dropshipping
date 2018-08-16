@@ -75,7 +75,7 @@ namespace Pedidos.API.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("meus-pedidos")]
         public async Task<IActionResult> GetMeusPedidos()
         {
             var codigoClienteClaim = this.User.Claims.FirstOrDefault(x => x.Type == "sub");
@@ -89,7 +89,14 @@ namespace Pedidos.API.Controllers
              .Include("FornecedoresDoPedido.DadosDaEntrega")
              .Where(x => x.CodigoCliente == Guid.Parse(codigoCliente)).ToListAsync();
 
-             return StatusCode(200,pedidos);
+             return StatusCode(200, pedidos.Select(x=>new ListaPedidoDTO{
+                 CodigoPedido = x.CodigoPedido.ToString(),
+                 DataAtualizacao = x.DataAtualizacaoStatus,
+                 DataPedido = x.DataDoPedido,
+                 PedidoId = x.PedidoId,
+                 Status = (int) x.StatusPedido,
+                 ValorTotal = x.ObterValorTotalDoPedido()
+             }));
         }
     }
 }

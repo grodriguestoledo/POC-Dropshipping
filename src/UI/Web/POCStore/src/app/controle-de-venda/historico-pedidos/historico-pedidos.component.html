@@ -1,3 +1,42 @@
 <div class="row">
-  
+    <div class="col-12 d-none d-sm-block">
+        <div class="table-responsive ">
+            <table class="table table-striped table-bordered ">
+                <thead>
+                    <th>Cód. Pedido</th>
+                    <th>Data do pedido</th>
+                    <th>Valor total</th>
+                    <th>Status</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of listaDePedidos">
+                        <td>{{pedido.pedidoId }}</td>
+
+                        <td>{{pedido.dataPedido | date :'dd/MM/yyyy HH:mm:ss':'-0600'}}</td>
+                        <td>{{pedido.valorTotal | currency:'R$ ':'symbol':'1.2-2'}}</td>
+                        <td>{{pedido.statusStr}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 d-block d-sm-none">
+        <div class="card pedido-lista-mobile" *ngFor="let pedido of listaDePedidos">
+            <div class="card-body">
+                <div class="pedido-lista-mobile-info">
+                    <span>Código do Pedido</span> : {{pedido.pedidoId }}
+                </div>
+                <div class="pedido-lista-mobile-info">
+                    <span>Data do pedido</span> : {{pedido.dataPedido | date : 'dd/MM/yyyy HH:mm:ss':'-0600'}}
+                </div>
+                <div class="pedido-lista-mobile-info">
+                    <span>Valor total</span> : {{pedido.valorTotal | currency:'R$ ':'symbol':'1.2-2'}}
+                </div>
+                <div class="pedido-lista-mobile-info">
+                    <span>Status </span>: {{pedido.statusStr}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

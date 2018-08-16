@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Pedidos.API.Domain.Entities
 {
@@ -40,6 +41,11 @@ namespace Pedidos.API.Domain.Entities
         public void AdicionarPedidosDoFornecedor(PedidoFornecedor pedidoFornecedor)
         {
             this.FornecedoresDoPedido.Add(pedidoFornecedor);
+        }
+
+        public decimal ObterValorTotalDoPedido()
+        {
+            return this.FornecedoresDoPedido.Sum(x=>x.ItensDoPedido.Sum(y=>y.PrecoUnitario * y.Quantidade) + x.DadosDaEntrega.ValorDoFrete);
         }
     }
 }

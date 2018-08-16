@@ -1,0 +1,11 @@
+.pedido-lista-mobile{
+    margin-top:5px;
+    cursor: pointer;
+}
+.pedido-lista-mobile-info
+{
+    font-size: 0.9em;
+}
+.pedido-lista-mobile-info span{
+    font-weight: bold;
+}
