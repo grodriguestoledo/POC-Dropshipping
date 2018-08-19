@@ -21,7 +21,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
   public itensPorFornecedor = [];
   public enderecosDoCliente = [];
   public enderecoSelecionado: EnderecoModel;
-  public estaAutenticado : boolean = false;
+  public estaAutenticado: boolean = false;
   public carrinho: CarrinhoDeCompraModel;
   constructor(
     private router: Router,
@@ -56,7 +56,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
       for (let i = 0; i < fornecedoresUIDDistinct.length; i++) {
         let fornecedorUID = fornecedoresUIDDistinct[i];
         let itensAComprarDoFornecedor = this.carrinho.itens.filter(x => x.fornecedorUID == fornecedorUID);
-        this.itensPorFornecedor.push({ freteCalculado: false, valorFrete: 0, diasMinimosParaEntrega:0, diasMaximosParaEntrega:0,fornecedorUID: fornecedorUID, nome: itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
+        this.itensPorFornecedor.push({ freteCalculado: false, valorFrete: 0, diasMinimosParaEntrega: 0, diasMaximosParaEntrega: 0, fornecedorUID: fornecedorUID, nome: itensAComprarDoFornecedor[0].fornecedor, itens: itensAComprarDoFornecedor });
       }
       if (this.enderecoSelecionado) {
         this.calcularFreteDosItens(this.enderecoSelecionado);
@@ -86,7 +86,7 @@ export class CarrinhoDeCompraComponent implements OnInit {
     }
   }
   calcularFrete(itemPorFornecedor, cep) {
-    this.fornecedorService.obterDadosDeEntrega(itemPorFornecedor.fornecedorUID, cep).subscribe((entrega)=>{
+    this.fornecedorService.obterDadosDeEntrega(itemPorFornecedor.fornecedorUID, cep).subscribe((entrega) => {
       itemPorFornecedor.freteCalculado = true;
       itemPorFornecedor.valorFrete = entrega.valorFrete;
       itemPorFornecedor.diasMinimosParaEntrega = entrega.minimoDiasEntrega;
@@ -113,19 +113,22 @@ export class CarrinhoDeCompraComponent implements OnInit {
     let pedido = new PedidoCadastroModel();
     for (let i = 0; i < this.itensPorFornecedor.length; i++) {
       let fornecedorItens = this.itensPorFornecedor[i];
-      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome,fornecedorItens.valorFrete, fornecedorItens.diasMinimosParaEntrega, fornecedorItens.diasMaximosParaEntrega);
+      let itemPedido = new PedidoItemModel(fornecedorItens.fornecedorUID, fornecedorItens.nome, fornecedorItens.valorFrete, fornecedorItens.diasMinimosParaEntrega, fornecedorItens.diasMaximosParaEntrega);
       for (let y = 0; y < fornecedorItens.itens.length; y++) {
         let itemFornecedor = fornecedorItens.itens[y];
-        let subitem = new PedidoSubItemModel(itemFornecedor.codigoProduto,itemFornecedor.imagemProduto,itemFornecedor.nomeProduto, itemFornecedor.quantidade,itemFornecedor.precoUnitario);
+        let subitem = new PedidoSubItemModel(itemFornecedor.codigoProduto, itemFornecedor.imagemProduto, itemFornecedor.nomeProduto, itemFornecedor.quantidade, itemFornecedor.precoUnitario);
         itemPedido.subitens.push(subitem);
       }
 
       pedido.itens.push(itemPedido)
     }
     pedido.enderecoParaEntrega = this.enderecoSelecionado;
-    console.log(pedido);
-    this.pedidoService.registrarPedido(pedido).subscribe(()=>{
 
+    this.pedidoService.registrarPedido(pedido).subscribe(() => {
+
+      this.carrinhoDeCompraService.limparCarrinho().subscribe(() => {
+        this.router.navigate(['historico-pedidos']);
+      });
     });
   }
 }

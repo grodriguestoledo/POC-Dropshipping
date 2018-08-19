@@ -9,12 +9,13 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/federation/{catchAll}",
+      "UpstreamPathTemplate": "/gateway/api/federation/{catchAll}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
         "Options"
-      ]
+      ],
+      "DangerousAcceptAnyServerCertificateValidator":true
     },
     {
       "DownstreamPathTemplate": "/api/produtos",
@@ -25,7 +26,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/produtos",
+      "UpstreamPathTemplate": "/gateway/api/produtos",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -33,7 +34,9 @@
         "Delete",
         "Options"
       ],
-      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" }
+      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/produtos/{catchAll}",
@@ -44,7 +47,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/produtos/{catchAll}",
+      "UpstreamPathTemplate": "/gateway/api/produtos/{catchAll}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -52,7 +55,9 @@
         "Delete",
         "Options"
       ],
-      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" }
+      "FileCacheOptions": { "TtlSeconds": 3600, "Region": "produtos" },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/carrinho",
@@ -63,14 +68,16 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/carrinho",
+      "UpstreamPathTemplate": "/gateway/api/carrinho",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/carrinho/{catchAll}",
@@ -81,14 +88,16 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/carrinho/{catchAll}",
+      "UpstreamPathTemplate": "/gateway/api/carrinho/{catchAll}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/cliente",
@@ -99,14 +108,16 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/cliente",
+      "UpstreamPathTemplate": "/gateway/api/cliente",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/cliente/{everything}",
@@ -117,14 +128,16 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/cliente/{everything}",
+      "UpstreamPathTemplate": "/gateway/api/cliente/{everything}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
         "Put",
         "Delete",
         "Options"
-      ]
+      ],
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/pedidos/{everything}",
@@ -135,7 +148,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/pedidos/{everything}",
+      "UpstreamPathTemplate": "/gateway/api/pedidos/{everything}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -146,7 +159,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "identity-server",
         "AllowedScopes": []
-      }
+      },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/pedidos",
@@ -157,7 +172,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/pedidos",
+      "UpstreamPathTemplate": "/gateway/api/pedidos",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -168,7 +183,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "identity-server",
         "AllowedScopes": []
-      }
+      },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/fornecedores/{everything}",
@@ -179,7 +196,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/fornecedores/{everything}",
+      "UpstreamPathTemplate": "/gateway/api/fornecedores/{everything}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -190,7 +207,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "identity-server",
         "AllowedScopes": []
-      }
+      },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     },
     {
       "DownstreamPathTemplate": "/api/fornecedores",
@@ -201,7 +220,7 @@
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/fornecedores",
+      "UpstreamPathTemplate": "/gateway/api/fornecedores",
       "UpstreamHttpMethod": [
         "Get",
         "Post",
@@ -212,7 +231,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "identity-server",
         "AllowedScopes": []
-      }
+      },
+      "DangerousAcceptAnyServerCertificateValidator":true
+
     }
   ],
   "GlobalConfiguration": {}

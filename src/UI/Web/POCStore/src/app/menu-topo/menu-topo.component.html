@@ -17,7 +17,7 @@
           <b>{{ (itensNoCarrinho && itensNoCarrinho > 0) ? "(" + itensNoCarrinho + ")" : "" }}</b>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="conta" >
             <a class="nav-link" href="#/historico-pedidos"> Meus pedidos</a>
       </li>
     </ul>

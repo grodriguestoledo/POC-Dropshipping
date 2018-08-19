@@ -43,9 +43,13 @@
             return StatusCode(201);
         }
 
-        [HttpDelete("{codigoCliente}")]
-        public async Task<IActionResult> Delete(string codigoCliente)
+        [HttpDelete()]
+        public async Task<IActionResult> Delete()
         {
+            var codigoClienteClaim = this.User.Claims.FirstOrDefault(x => x.Type == "sub");
+            if (codigoClienteClaim == null) return StatusCode(401);
+
+            var codigoCliente = codigoClienteClaim.Value;
             var carrinhoKey = "cart_" + codigoCliente;
             await _carrinhoRepository.RemoverCarrinho(carrinhoKey);
 

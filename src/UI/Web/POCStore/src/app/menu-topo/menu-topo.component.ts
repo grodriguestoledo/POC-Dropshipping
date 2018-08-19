@@ -18,8 +18,9 @@ export class MenuTopoComponent implements OnInit {
 
   ngOnInit() {
     this.events.usuarioAutenticouEvent.subscribe((res) => { this.onUsuarioAutenticadoHandler(res); });
-    this.events.usuarioEfetuouLogoffEvent.subscribe(() => { this.onUsuarioLogoffHandler(); })
-    this.events.itemAdicionadoAoCarrinhoEvent.subscribe((event: ItemAdicionadoAoCarrinhoEventModel) => { this.onItemAdicionadoAoCarrinho(event); })
+    this.events.usuarioEfetuouLogoffEvent.subscribe(() => { this.onUsuarioLogoffHandler(); });
+    this.events.itemAdicionadoAoCarrinhoEvent.subscribe((event: ItemAdicionadoAoCarrinhoEventModel) => { this.onItemAdicionadoAoCarrinho(event); });
+    this.events.carrinhoEsvaziadoEvent.subscribe(()=>{ this.onCarrinhoEsvaziado();});
     this.conta = this.autenticacaoService.obterConta() as ContaAutenticadaModel;
 
     let clienteUID = this.conta != undefined ? this.conta.id : undefined;
@@ -43,5 +44,9 @@ export class MenuTopoComponent implements OnInit {
 
   onItemAdicionadoAoCarrinho(event: ItemAdicionadoAoCarrinhoEventModel) {
     this.itensNoCarrinho += event.quantidade;
+  }
+
+  onCarrinhoEsvaziado(){
+    this.itensNoCarrinho =0;
   }
 }

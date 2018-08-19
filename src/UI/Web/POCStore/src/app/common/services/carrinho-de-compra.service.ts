@@ -40,11 +40,10 @@ export class CarrinhoDeCompraService {
             else {
 
                 let carrinhoSalvoStr = window.localStorage.getItem(this.carrinhoKey);
-                console.log(carrinhoSalvoStr);
                 let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
                 let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : new CarrinhoDeCompraModel();
 
-                if (carrinho && carrinhoJSON.itens && carrinhoJSON.itens.length) {
+                if (carrinhoJSON && carrinhoJSON.itens && carrinhoJSON.itens.length) {
                     for (let i = 0; i < carrinhoJSON.itens.length; i++) {
                         let item = carrinhoJSON.itens[i];
                         carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto, item.nomeProduto, item.quantidade, item.precoUnitario, item.fornecedorUID, item.fornecedor, item.imagemProduto));
@@ -84,11 +83,10 @@ export class CarrinhoDeCompraService {
             }
             else {
                 let carrinhoSalvoStr = window.localStorage.getItem(this.carrinhoKey);
-                console.log(carrinhoSalvoStr);
                 let carrinhoJSON = !carrinhoSalvoStr ? undefined : JSON.parse(carrinhoSalvoStr);
-                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : undefined;
+                let carrinho = carrinhoJSON ? new CarrinhoDeCompraModel(carrinhoJSON.precoTotalDoCarrinhoSemFrete) : new CarrinhoDeCompraModel();
 
-                if (carrinho) {
+                if (carrinhoJSON) {
                     for (let i = 0; i < carrinhoJSON.itens.length; i++) {
                         let item = carrinhoJSON.itens[i];
                         carrinho.itens.push(new ItemCarrinhoDeCompraModel(item.codigoProduto, item.nomeProduto, item.quantidade, item.precoUnitario, item.fornecedorUID, item.fornecedor, item.imagemProduto));
@@ -101,6 +99,22 @@ export class CarrinhoDeCompraService {
         });
     }
 
+    limparCarrinho() : Observable<any>
+    {
+        return new Observable((obs)=>{
+            this.httpClient.delete('/carrinho').subscribe((res) => {
+                window.localStorage.removeItem(this.carrinhoKey);
+                this.events.carrinhoEsvaziadoEvent.emit(true);
+                obs.next(true);
+                obs.complete();
+            }, (er) => {
+                console.log(er);
+                obs.next(false);
+                obs.complete();
+            });
+
+        });
+    }
     
 
     private salvarCarrinhoDeCompraServidor(clienteUID: string, carrinho: CarrinhoDeCompraModel): Observable<any> {

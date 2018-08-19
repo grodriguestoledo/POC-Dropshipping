@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Fornecedores.API.Infrastructure.Data;
+using Fornecedores.API.Infrastructure.Integration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,9 @@ namespace Fornecedores.API
             var migrationAssembly = this.GetType().GetTypeInfo().Assembly.GetName().Name;
             services.AddDbContext<FornecedoresDbContext>(options => { options.UseSqlServer(connectionStr, sqlOptions => sqlOptions.MigrationsAssembly(migrationAssembly)); });
             services.AddScoped<IFornecedoresDbContext>(provider => provider.GetService<FornecedoresDbContext>());
+
+            var fornecedorApiUrl = Configuration.GetSection("FornecedorIntegracao")["URL"];
+            services.AddTransient<IFornecedorIntegrationService>(i=> new FornecedorIntegrationService(fornecedorApiUrl));
             services.AddMvc();
         }
 

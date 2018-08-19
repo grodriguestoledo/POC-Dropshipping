@@ -7,4 +7,5 @@ export class Events
     public usuarioAutenticouEvent = new EventEmitter<ContaAutenticadaModel>(false);
     public usuarioEfetuouLogoffEvent = new EventEmitter<boolean>(false);
     public itemAdicionadoAoCarrinhoEvent = new EventEmitter<ItemAdicionadoAoCarrinhoEventModel>(false);
+    public carrinhoEsvaziadoEvent = new EventEmitter<boolean>(false);
 }

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Fornecedores.API.Infrastructure.Data;
+using Fornecedores.API.Infrastructure.Integration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,9 +14,14 @@ namespace Fornecedores.API.Controllers
     public class FornecedoresController : Controller
     {
         private readonly IFornecedoresDbContext _context;
-        public FornecedoresController(IFornecedoresDbContext context)
+        private readonly IFornecedorIntegrationService _fornecedorIntegrationService;
+        public FornecedoresController(
+            IFornecedoresDbContext context,
+            IFornecedorIntegrationService fornecedorIntegrationService
+            )
         {
             _context = context;
+            _fornecedorIntegrationService = fornecedorIntegrationService;
         }
 
         [HttpGet("{codigoFornecedor}")]
@@ -30,24 +37,28 @@ namespace Fornecedores.API.Controllers
         [HttpGet("{codigoFornecedor}/frete/{cep}")]
         public async Task<IActionResult> GetDadosDaEntregaPeloFornecedor(Guid codigoFornecedor, string cep)
         {
-            return await Task.Factory.StartNew<IActionResult>(() =>
-            {
-                if (cep == "09850090")
-                {
-                    return StatusCode(200, new
-                    {
-                        maximoDiasEntrega = 15,
-                        minimoDiasEntrega = 8,
-                        valorFrete = 20.88
-                    });
-                }
-                return StatusCode(200, new
-                {
-                    maximoDiasEntrega = 10,
-                    minimoDiasEntrega = 4,
-                    valorFrete = 0
-                });
-            });
+            var dadoEntrega = await _fornecedorIntegrationService.ObterDadosDaEntregaDoFornecedor(codigoFornecedor.ToString().ToUpper(),cep);
+            return StatusCode(200,dadoEntrega);
+            // return await Task.Factory.StartNew<IActionResult>(() =>
+            // {
+
+
+            //     if (cep == "09850090")
+            //     {
+            //         return StatusCode(200, new
+            //         {
+            //             maximoDiasEntrega = 15,
+            //             minimoDiasEntrega = 8,
+            //             valorFrete = 20.88
+            //         });
+            //     }
+            //     return StatusCode(200, new
+            //     {
+            //         maximoDiasEntrega = 10,
+            //         minimoDiasEntrega = 4,
+            //         valorFrete = 0
+            //     });
+            // });
         }
     }
 }
