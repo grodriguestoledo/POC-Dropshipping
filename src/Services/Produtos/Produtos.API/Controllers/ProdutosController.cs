@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Presentation.DTO;
 using Produtos.API.Infrastructure.Data;
 
@@ -13,9 +14,13 @@ namespace Produtos.API.Controllers
     public class ProdutosController : Controller
     {
         private readonly ProdutoRepository _produtoRepository;
-        public ProdutosController(ProdutoRepository produtoRepository)
+        private readonly IConfiguration _configuration;
+        public readonly string _produtoImagemUrl;
+        public ProdutosController(ProdutoRepository produtoRepository, IConfiguration configuration)
         {
             _produtoRepository = produtoRepository;
+            _configuration = configuration;
+            _produtoImagemUrl = _configuration.GetSection("ProdutoImagemUrl")["URL"];
 
         }
         // GET api/values
@@ -31,7 +36,8 @@ namespace Produtos.API.Controllers
                 NomeProduto = x.NomeProduto,
                 Preco = x.Preco,
                 Fornecedor = x.Fornecedor,
-                ImagemProduto = x.ImagemUrl,
+                //ImagemProduto = x.ImagemUrl,
+                ImagemProduto = string.Format(_produtoImagemUrl, x.CodigoProduto.ToLower()),
                 FornecedorUID = x.FornecedorUID
             });
 
@@ -55,7 +61,9 @@ namespace Produtos.API.Controllers
                 NomeProduto = produtoDetalhe.NomeProduto,
                 Preco = produtoDetalhe.Preco,
                 Fornecedor = produtoDetalhe.Fornecedor,
-                ImagemProduto = produtoDetalhe.ImagemUrl,
+                // ImagemProduto = produtoDetalhe.ImagemUrl,
+                ImagemProduto = string.Format(_produtoImagemUrl, produtoDetalhe.CodigoProduto.ToLower()),
+
                 FornecedorUID = produtoDetalhe.FornecedorUID
             });
         }
