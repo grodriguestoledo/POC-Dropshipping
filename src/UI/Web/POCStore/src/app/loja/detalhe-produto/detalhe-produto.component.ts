@@ -1,3 +1,4 @@
+import { FornecedorService } from './../../common/services/fornecedor.service';
 import { CarrinhoDeCompraService } from '../../common/services/carrinho-de-compra.service';
 import { ItemAdicionadoAoCarrinhoEventModel } from '../../common/events/item-adicionado-ao-carrinho-event.model';
 import { DetalheProdutoModel } from '../../common/models/detalhe-produto-model';
@@ -20,7 +21,8 @@ export class DetalheProdutoComponent implements OnInit {
     private router: Router,
     private produtoService: ProdutoService,
     private events: Events,
-    private carrinhoDeCompraService : CarrinhoDeCompraService
+    private carrinhoDeCompraService : CarrinhoDeCompraService,
+    private fornecedorService : FornecedorService
     ) {
 
 
@@ -31,6 +33,10 @@ export class DetalheProdutoComponent implements OnInit {
       let codigoProduto = params.get('codigoProduto');
       this.produtoService.obterProdutoDetalhe(codigoProduto).subscribe((response)=>{
         this.produto = response;
+        
+        this.fornecedorService.obterEstoqueDoProduto(this.produto.fornecedorUID, codigoProduto).subscribe((emEstoque)=>{
+          this.produto.emEstoque = emEstoque;
+        });
       });
     })
   }

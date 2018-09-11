@@ -10,6 +10,20 @@
     text-align: justify;
     font-size:1.1em;
 }
+
 .produto--quantidade{
     font-size:1.1em;
+}
+
+.produto--estoque{
+    text-align: justify;
+    font-size:1.3em;
+    font-weight: bold;
+}
+.produto--estoque.produto--estoque--sim{
+    color:green;
+    
+}
+.produto--estoque.produto--estoque--nao{
+    color:red;
 }

@@ -18,18 +18,15 @@ export class FornecedorService
                 obs.next(res);
                 obs.complete();
             });
-            // if(cep=='09850090'){
-            //     dadosEntrega.maximoDiasEntrega = 15;
-            //     dadosEntrega.minimoDiasEntrega = 8;
-            //     dadosEntrega.valorFrete = 20.88;
-            // }
-            // else {
-            //     dadosEntrega.maximoDiasEntrega = 10;
-            //     dadosEntrega.minimoDiasEntrega = 4;
-            //     dadosEntrega.valorFrete = 0;
-            // }
-            // obs.next(dadosEntrega);
-            // obs.complete();
+        });
+    }
+
+    obterEstoqueDoProduto(fornecedorUID?:string, codigoProduto?:string) : Observable<boolean>{
+        return new Observable((obs)=>{
+            this.httpClient.get('/fornecedores/' + fornecedorUID + '/produtos/' + codigoProduto + '/estoque').subscribe((res:boolean)=>{
+                obs.next(res);
+                obs.complete();
+            });
         });
     }
 }

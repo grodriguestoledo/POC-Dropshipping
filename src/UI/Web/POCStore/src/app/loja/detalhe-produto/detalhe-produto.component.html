@@ -26,7 +26,9 @@
           </div>
       </div>
       <div class="col-sm-12 col-12">
-        <button class="btn btn-success btn-lg mt-3" (click)="onComprarClick()">Comprar</button>
+        <div class="produto--estoque produto--estoque--sim" *ngIf="produto?.emEstoque" >Em estoque</div>
+        <div class="produto--estoque produto--estoque--nao" *ngIf="!produto?.emEstoque" >Fora de estoque</div>
+        <button class="btn btn-success btn-lg mt-3" [disabled]="!produto?.emEstoque" (click)="onComprarClick()">Comprar</button>
         <div class="produto--fornecedor">
           Fornecido por {{produto?.fornecedor}}
         </div>

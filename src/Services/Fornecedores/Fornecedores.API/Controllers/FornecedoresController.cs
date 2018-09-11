@@ -34,6 +34,12 @@ namespace Fornecedores.API.Controllers
             return StatusCode(200, fornecedor);
         }
 
+        [HttpGet("{codigoFornecedor}/produtos/{codigoProduto}/estoque")]
+        public Task<IActionResult> ObterEstoqueDoProduto(Guid codigoFornecedor, Guid codigoProduto)
+        {
+            return Task.FromResult<IActionResult>(StatusCode(200,true));
+        }
+
         [HttpGet("{codigoFornecedor}/frete/{cep}")]
         public async Task<IActionResult> GetDadosDaEntregaPeloFornecedor(Guid codigoFornecedor, string cep)
         {
