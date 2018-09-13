@@ -204,10 +204,6 @@
         "Delete",
         "Options"
       ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "identity-server",
-        "AllowedScopes": []
-      },
       "DangerousAcceptAnyServerCertificateValidator":true
 
     },
